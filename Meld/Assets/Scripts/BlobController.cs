@@ -24,9 +24,9 @@ public class BlobController : MonoBehaviour
     {
         var position1 = player1.transform.position;
         var position2 = player2.transform.position;
-        var midpoint = (position1 + position2) / 2;
+        var midpoint = (position1 - position2) / 2;
 
-        transform.position = midpoint;
+        // transform.position = midpoint;
         // Updating the position of the cloth to prevent it from breaking off
         if (Vector3.Distance(transform.position, midpoint) < 3)
         {
