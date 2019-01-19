@@ -5,6 +5,7 @@ using UnityEngine;
 public class move2 : MonoBehaviour
 {
     public float speed = 1;
+    public float topSpeed = 1;
     private Rigidbody cube;
 
     // Start is called before the first frame update
@@ -25,6 +26,8 @@ public class move2 : MonoBehaviour
 
         cube.AddForce(movement * speed);
 
+        if (cube.velocity.magnitude > topSpeed)
+            cube.velocity = cube.velocity.normalized * topSpeed;
         //Vector3 vel = cube.velocity;
         //vel.x = horizontal;
         //vel.y = vertical;

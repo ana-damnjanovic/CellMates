@@ -5,7 +5,9 @@ using UnityEngine;
 public class move : MonoBehaviour
 {
     public float speed = 1;
+    public float topSpeed = 2;
     private Rigidbody cube;
+    Vector3 movement;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,9 @@ public class move : MonoBehaviour
         Vector3 movement = new Vector3 (horizontal, 0.0f, vertical);
 
         cube.AddForce(movement * speed);
-
+        
+        if (cube.velocity.magnitude > topSpeed)
+            cube.velocity = cube.velocity.normalized * topSpeed;
         //Vector3 vel = cube.velocity;
         //vel.x = horizontal;
         //vel.y = vertical;
