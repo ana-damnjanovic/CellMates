@@ -1294,7 +1294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.1
-  topSpeed: 1
+  topSpeed: 0.8
 --- !u!1 &681593784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.1
-  topSpeed: 2
+  topSpeed: 0.8
 --- !u!1 &1247792724
 GameObject:
   m_ObjectHideFlags: 0
