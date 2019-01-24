@@ -25,7 +25,9 @@ public class move : MonoBehaviour
 
         Vector3 movement = new Vector3 (horizontal, 0.0f, vertical);
 
-        cube.AddForce(movement * speed);
+        //cube.AddForce(movement * speed);
+
+        cube.velocity = movement * speed;
         
         if (cube.velocity.magnitude > topSpeed)
             cube.velocity = cube.velocity.normalized * topSpeed;
