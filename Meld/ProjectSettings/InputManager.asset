@@ -169,8 +169,8 @@ InputManager:
     m_Name: Vertical2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: i
-    positiveButton: k
+    negativeButton: k
+    positiveButton: i
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
@@ -179,7 +179,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 0
-    axis: 1
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
     m_Name: Fire1
