@@ -19,7 +19,7 @@ MonoBehaviour:
   m_simpleGravity: {x: 0, y: -9.81, z: 0}
   m_simpleParticleSize: 0.3
   m_simpleParticleFriction: 1
-  m_simpleParticleRestitution: 0
+  m_simpleParticleRestitution: 1
   m_simpleParticleAdhesion: 0
   m_simpleParticleDamping: 0
   m_simpleClothWind: {x: 0, y: 0, z: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_staticFriction: 1
   m_dynamicFriction: 1
   m_particleFriction: 0.1
-  m_restitution: 0
+  m_restitution: 1
   m_adhesion: 0
   m_sleepThreshold: 0
   m_maxSpeed: 3.4028235e+38
