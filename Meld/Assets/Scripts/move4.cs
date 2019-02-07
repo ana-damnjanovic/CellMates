@@ -118,11 +118,7 @@ public class move4 : MonoBehaviour
             player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * jumpMagnitude);
 
             Vector3 membraneAvg = avg + 0.25f * Vector3.up;
-            //membrane.transform.localScale = new Vector3(1.75f, 1.25f, 1.75f);
             membrane.transform.position = membraneAvg;
-            float xDistance = Math.Abs(player1.transform.position.x - player2.transform.position.x);
-            float yDistance = Math.Abs(player1.transform.position.y - player2.transform.position.y);
-            float zDistance = Math.Abs(player1.transform.position.z - player2.transform.position.z);
             membraneSupport.transform.localScale = new Vector3(0.75f * playerDistance, 0.75f * playerDistance, 0.75f * playerDistance);
             membraneSupport.transform.position = avg + 0.25f * Vector3.down;
 
