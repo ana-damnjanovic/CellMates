@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NVIDIA.Flex;
 
 public class moveClean : MonoBehaviour
 {
     public float speed = 1;
     public float topSpeed = 3;
-    public float maxSeperation = 1.5f;
+    public float maxSeparation = 1.5f;
     public float jump = 5;
     Rigidbody p1RigidBody;
     Rigidbody p2RigidBody;
@@ -15,6 +16,7 @@ public class moveClean : MonoBehaviour
     private GameObject player1;
     private GameObject player2;
     private GameObject membrane;
+    private FlexClothActor membraneCloth;
     
     public string membraneTag = "Membrane";
 
@@ -35,6 +37,7 @@ public class moveClean : MonoBehaviour
     void Start()
     {
         membrane = GameObject.FindWithTag(membraneTag);
+        membraneCloth = GameObject.FindWithTag(membraneTag).GetComponent<FlexClothActor>();
 
         player1 = GameObject.FindWithTag(player1Tag);
         p1RigidBody = player1.GetComponent<Rigidbody>();
@@ -110,7 +113,7 @@ public class moveClean : MonoBehaviour
 
 
 
-        if (true || (Vector3.Distance(player1.transform.position, player2.transform.position) <= maxSeperation))
+        if (true || (Vector3.Distance(player1.transform.position, player2.transform.position) <= maxSeparation))
         {
             float p1Horizontal = Input.GetAxis(p1HorizontalInput) * 20;
             float p1Vertical = Input.GetAxis(p1VerticalInput) * 20;
@@ -204,16 +207,36 @@ public class moveClean : MonoBehaviour
         player1position.y = 0;
         player2position.y = 0;
 
-        if (Vector3.Distance(player1position, player2position) > maxSeperation || (!p1Grounded && p1onp2) || (!p2Grounded && p2onp1))
-        {
-            Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
+        float playerDistance = Vector3.Distance(player1position, player2position);
+        Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
+        // start pulling players together gently when they're grounded and close to max separation
+        if ((maxSeparation - 1.5) <= playerDistance && playerDistance < maxSeparation)
+        {
+            // TODO: add more checks for special cases (sticking or stacked players)
+            float weakJumpMagnitude = 10;
+            if ((maxSeparation - 0.5) <= playerDistance && playerDistance < maxSeparation)
+            {
+                weakJumpMagnitude = 15;
+                membraneCloth.Teleport(avg, membrane.transform.rotation);
+            }
+
+            player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * weakJumpMagnitude);
+            player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * weakJumpMagnitude);
+            //membrane.transform.position = avg;
+            //membraneCloth.Teleport(avg, membrane.transform.rotation);
+        }
+
+        else if (playerDistance > maxSeparation || (!p1Grounded) || (!p2Grounded))
+        {
             if (p1Grounded && p2Grounded)
             {
                 avg.y = jump;
             }
             player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * jumpMagnitude);
             player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * jumpMagnitude);
-        } 
+            //membrane.transform.position = avg;
+            //membraneCloth.Teleport(avg, membrane.transform.rotation);
+        }
     }
 }
