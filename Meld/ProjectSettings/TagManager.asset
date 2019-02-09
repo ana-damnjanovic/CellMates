@@ -8,6 +8,7 @@ TagManager:
   - Player2
   - Membrane
   - MembraneSupportSphere
+  - stickable
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - 
   - PostProcessing
   - Players
-  - 
-  - 
+  - Cloth
+  - ClothSupport
   - 
   - 
   - 
