@@ -104,18 +104,22 @@ public class moveCleanUnityCloth : MonoBehaviour
         if (Input.GetButton(p1StickButton) && p1CanStick)
         {
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            p1Behaviour.SetIsSticking(true);
         }
         else
         {
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+            p1Behaviour.SetIsSticking(false);
         }
         if (Input.GetButton(p2StickButton) && p2CanStick)
         {
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            p2Behaviour.SetIsSticking(true);
         }
         else
         {
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+            p2Behaviour.SetIsSticking(false);
         }
 
 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class playerBehaviour : MonoBehaviour
 {
     private bool isGrounded;
+    private bool isSticking = false;
     private RaycastHit playerGroundedHit;
     private GameObject player;
     private Rigidbody rb;
@@ -24,6 +25,16 @@ public class playerBehaviour : MonoBehaviour
     public Rigidbody GetRigidBody()
     {
         return rb;
+    }
+
+    public bool GetIsSticking()
+    {
+        return isSticking;
+    }
+
+    public void SetIsSticking(bool isPlayerSticking)
+    {
+        isSticking = isPlayerSticking;
     }
 
     // Start is called before the first frame update
