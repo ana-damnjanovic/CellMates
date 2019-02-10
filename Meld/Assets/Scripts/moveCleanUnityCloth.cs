@@ -52,30 +52,38 @@ public class moveCleanUnityCloth : MonoBehaviour
 
     private void Update()
     {
-        /* 
+    
         Vector3 down = transform.TransformDirection(Vector3.down) * 10;
         Debug.DrawRay(player1.transform.position, down, Color.green);
         Debug.DrawRay(player2.transform.position, down, Color.green);
         Vector3 fwd = transform.TransformDirection(Vector3.forward) * 50;
         Debug.DrawRay(player1.transform.position, fwd, Color.red);
         Debug.DrawRay(player2.transform.position, fwd, Color.red);
-        */
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2, false);
+        Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2, false);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        // Makes sticking rays ignore players, cell membrane, and support structure
+        LayerMask playerLayer = 1 << 9;
+        LayerMask cellLayer = 1 << 10;
+        LayerMask supportLayer = 1 << 11;
+        LayerMask layerMask = ~(playerLayer | cellLayer | supportLayer);
+       // Debug.Log(~(playerLayer | cellLayer | supportLayer));
+
         RaycastHit p1FwdHit;
         bool p1CanStick = false;
         Vector3 p1Fwd = player1.transform.TransformDirection(Vector3.forward);
-        bool p1HitFwd = Physics.Raycast(player1.transform.position, Vector3.forward, out p1FwdHit, 1);
-
-        if (p1HitFwd && p1FwdHit.rigidbody.CompareTag("stickable"))
+        bool p1HitFwd = Physics.Raycast(player1.transform.position, Vector3.forward, out p1FwdHit, 3, layerMask);
+        
+        if (p1HitFwd && p1FwdHit.collider.CompareTag("stickable"))
         {
             p1CanStick = true;
         } else
@@ -86,9 +94,9 @@ public class moveCleanUnityCloth : MonoBehaviour
         RaycastHit p2FwdHit;
         bool p2CanStick = false;
         Vector3 p2Fwd = player2.transform.TransformDirection(Vector3.forward);
-        bool p2HitFwd = Physics.Raycast(player2.transform.position, Vector3.forward, out p2FwdHit, 1);
+        bool p2HitFwd = Physics.Raycast(player2.transform.position, Vector3.forward, out p2FwdHit, 3, layerMask);
 
-        if (p2HitFwd && p2FwdHit.rigidbody.CompareTag("stickable"))
+        if (p2HitFwd && p2FwdHit.collider.CompareTag("stickable"))
         {
             p2CanStick = true;
         }
