@@ -14,52 +14,46 @@ public class moveCleanUnityCloth : MonoBehaviour
     Vector3 movement;
     private GameObject player1;
     private GameObject player2;
-    private GameObject membrane;
-    private GameObject membraneSupportSphere;
-    private Cloth cloth;
-    
-    public string membraneTag = "Membrane";
-    public string membraneSupportSphereTag = "MembraneSupportSphere";
+    private playerBehaviour p1Behaviour;
+    private playerBehaviour p2Behaviour;
 
     public string player1Tag = "Player1";
     public string p1HorizontalInput = "Horizontal";
     public string p1VerticalInput = "Vertical";
     public string p1StickButton = "Fire1";
-    
+
     public string player2Tag = "Player2";
     public string p2HorizontalInput = "Horizontal2";
     public string p2VerticalInput = "Vertical2";
     public string p2StickButton = "Fire2";
 
     public float jumpMagnitude = 500f;
-    public float raycastDistance = 0.4f;
 
     // Start is called before the first frame update
     void Start()
     {
-        membrane = GameObject.FindWithTag(membraneTag);
-        membraneSupportSphere = GameObject.FindWithTag(membraneSupportSphereTag);
-        cloth = membrane.GetComponent<Cloth>();
-
         player1 = GameObject.FindWithTag(player1Tag);
         p1RigidBody = player1.GetComponent<Rigidbody>();
         p1RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+        p1Behaviour = player1.GetComponent<playerBehaviour>(); 
+
 
         player2 = GameObject.FindWithTag(player2Tag);
         p2RigidBody = player2.GetComponent<Rigidbody>();
         p2RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+        p2Behaviour = player2.GetComponent<playerBehaviour>();
     }
 
     private void Update()
     {
-    
+
         Vector3 down = transform.TransformDirection(Vector3.down) * 10;
         Debug.DrawRay(player1.transform.position, down, Color.green);
         Debug.DrawRay(player2.transform.position, down, Color.green);
         Vector3 fwd = transform.TransformDirection(Vector3.forward) * 50;
         Debug.DrawRay(player1.transform.position, fwd, Color.red);
         Debug.DrawRay(player2.transform.position, fwd, Color.red);
-        
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -76,17 +70,18 @@ public class moveCleanUnityCloth : MonoBehaviour
         LayerMask cellLayer = 1 << 10;
         LayerMask supportLayer = 1 << 11;
         LayerMask layerMask = ~(playerLayer | cellLayer | supportLayer);
-       // Debug.Log(~(playerLayer | cellLayer | supportLayer));
+        // Debug.Log(~(playerLayer | cellLayer | supportLayer));
 
         RaycastHit p1FwdHit;
         bool p1CanStick = false;
         Vector3 p1Fwd = player1.transform.TransformDirection(Vector3.forward);
         bool p1HitFwd = Physics.Raycast(player1.transform.position, Vector3.forward, out p1FwdHit, 3, layerMask);
-        
+
         if (p1HitFwd && p1FwdHit.collider.CompareTag("stickable"))
         {
             p1CanStick = true;
-        } else
+        }
+        else
         {
             p1CanStick = false;
         }
@@ -109,14 +104,16 @@ public class moveCleanUnityCloth : MonoBehaviour
         if (Input.GetButton(p1StickButton) && p1CanStick)
         {
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        } else
+        }
+        else
         {
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
         }
         if (Input.GetButton(p2StickButton) && p2CanStick)
         {
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        } else
+        }
+        else
         {
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
         }
@@ -157,22 +154,25 @@ public class moveCleanUnityCloth : MonoBehaviour
 
         RaycastHit p1GroundedHit;
         var p1Ray = new Ray(player1.transform.position, Vector3.down);
-        bool p1Grounded = Physics.Raycast(p1Ray, out p1GroundedHit, raycastDistance);
+        bool p1Grounded = p1Behaviour.GetIsGrounded();
         bool p1onp2 = false;
-        if (p1GroundedHit.rigidbody)
+        if (p1Grounded)
         {
-            if (p1GroundedHit.rigidbody.CompareTag(player2Tag))
+            p1GroundedHit = p1Behaviour.GetGroundedHit();
+            if (p1GroundedHit.rigidbody)
             {
-                p1Grounded = false;
-                p1onp2 = true;
-            } else 
-            { 
-                p1onp2 = false;
+                if (p1GroundedHit.rigidbody.CompareTag(player2Tag))
+                {
+                    p1Grounded = false;
+                    p1onp2 = true;
+                }
+                else
+                {
+                    p1onp2 = false;
+                }
             }
-        } else 
-        { 
-            p1onp2 = false;
         }
+
 
         // This should prevent the player from sinking to the ground
         p1RigidBody.useGravity = !p1Grounded;
@@ -185,23 +185,25 @@ public class moveCleanUnityCloth : MonoBehaviour
         }
 
         RaycastHit p2GroundedHit;
-        var p2Ray = new Ray(player2.transform.position, Vector3.down);
-        bool p2Grounded = Physics.Raycast(p2Ray, out p2GroundedHit, raycastDistance);
+        bool p2Grounded = p2Behaviour.GetIsGrounded();
         bool p2onp1 = false;
-        if (p2GroundedHit.rigidbody) 
+        if (p2Grounded)
         {
-            if (p2GroundedHit.rigidbody.CompareTag(player1Tag))
+            p2GroundedHit = p2Behaviour.GetGroundedHit();
+            if (p2GroundedHit.rigidbody)
             {
-                p2Grounded = false;
-                p2onp1 = true;
-            } else
-            {
-                p2onp1 = false;
+                if (p2GroundedHit.rigidbody.CompareTag(player1Tag))
+                {
+                    p2Grounded = false;
+                    p2onp1 = true;
+                }
+                else
+                {
+                    p2onp1 = false;
+                }
             }
-    } else
-    {
-        p2onp1 = false;
-    }
+        }
+
 
         // This should prevent the player from sinking to the ground
         p2RigidBody.useGravity = !p2Grounded;
@@ -211,7 +213,7 @@ public class moveCleanUnityCloth : MonoBehaviour
             var temp2 = p2RigidBody.velocity;
             temp2.y = Math.Max(0, temp2.y);
             p2RigidBody.velocity = temp2;
-      	}
+        }
         Vector3 player1position = player1.transform.position;
         Vector3 player2position = player2.transform.position;
         player1position.y = 0;
@@ -233,7 +235,6 @@ public class moveCleanUnityCloth : MonoBehaviour
 
         //    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * weakJumpMagnitude);
         //    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * weakJumpMagnitude);
-        //    cloth.randomAcceleration = new Vector3(10f, 10f, 10f);
         //}
 
         if (playerDistance > maxSeparation || (!p1Grounded) || (!p2Grounded))
@@ -245,15 +246,6 @@ public class moveCleanUnityCloth : MonoBehaviour
             }
             player1.GetComponent<Rigidbody>().AddForce((pullCenter - player1.transform.position).normalized * jumpMagnitude);
             player2.GetComponent<Rigidbody>().AddForce((pullCenter - player2.transform.position).normalized * jumpMagnitude);
-            cloth.randomAcceleration = new Vector3(100f, 100f, 100f);
         }
-         else
-        {
-            // default acceleration
-            cloth.randomAcceleration = new Vector3(10f, 10f, 10f);
-        }
-        membrane.transform.position = avg;
-        cloth.ClearTransformMotion();
-        membraneSupportSphere.transform.position = avg;
     }
 }
