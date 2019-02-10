@@ -1229,6 +1229,7 @@ GameObject:
   - component: {fileID: 356382096}
   - component: {fileID: 356382102}
   - component: {fileID: 356382097}
+  - component: {fileID: 356382103}
   m_Layer: 9
   m_Name: Player 2
   m_TagString: Player2
@@ -1378,6 +1379,19 @@ MonoBehaviour:
   membraneTag: Membrane
   jumpMagnitude: 20
   raycastDistance: 0.4
+--- !u!114 &356382103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356382095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e94bba172c8bdf468096eb85b77ba23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastDistance: 0.4
 --- !u!1 &593112753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1497,7 @@ GameObject:
   - component: {fileID: 834833238}
   - component: {fileID: 834833243}
   - component: {fileID: 834833239}
+  - component: {fileID: 834833244}
   m_Layer: 9
   m_Name: Player 1
   m_TagString: Player1
@@ -1595,6 +1610,19 @@ MonoBehaviour:
   membraneTag: Membrane
   jumpMagnitude: 20
   raycastDistance: 0.4
+--- !u!114 &834833244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834833237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e94bba172c8bdf468096eb85b77ba23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastDistance: 0.4
 --- !u!1 &867467040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,6 +1632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 867467041}
+  - component: {fileID: 867467043}
   - component: {fileID: 867467042}
   m_Layer: 0
   m_Name: PlayerBlob
@@ -1639,6 +1668,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 867467040}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06bb23123e90aa746a14a9b00673eba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSeparation: 1.5
+  membraneTag: Membrane
+  membraneSupportSphereTag: MembraneSupportSphere
+  player1Tag: Player1
+  player2Tag: Player2
+--- !u!114 &867467043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867467040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96e031add3dd36342a2a5aeeec14e36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -1646,8 +1692,6 @@ MonoBehaviour:
   topSpeed: 3
   maxSeparation: 1.5
   jump: 5
-  membraneTag: Membrane
-  membraneSupportSphereTag: MembraneSupportSphere
   player1Tag: Player1
   p1HorizontalInput: Horizontal
   p1VerticalInput: Vertical
@@ -1657,7 +1701,6 @@ MonoBehaviour:
   p2VerticalInput: Vertical2
   p2StickButton: Fire2
   jumpMagnitude: 500
-  raycastDistance: 0.4
 --- !u!1 &1046135703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,7 +1897,7 @@ SphereCollider:
   m_GameObject: {fileID: 1457188439}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1868,7 +1911,7 @@ MeshRenderer:
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
