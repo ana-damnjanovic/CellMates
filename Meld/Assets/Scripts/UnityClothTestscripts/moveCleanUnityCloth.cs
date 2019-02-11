@@ -220,8 +220,8 @@ public class moveCleanUnityCloth : MonoBehaviour
         }
         Vector3 player1position = player1.transform.position;
         Vector3 player2position = player2.transform.position;
-        player1position.y = 0;
-        player2position.y = 0;
+        //player1position.y = 0;
+        //player2position.y = 0;
 
         float playerDistance = Vector3.Distance(player1position, player2position);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
@@ -240,16 +240,41 @@ public class moveCleanUnityCloth : MonoBehaviour
         //    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * weakJumpMagnitude);
         //    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * weakJumpMagnitude);
         //}
-
-        if (playerDistance > maxSeparation || (!p1Grounded) || (!p2Grounded))
-        {
-            Vector3 pullCenter = avg;
-            if (p1Grounded && p2Grounded)
-            {
-                pullCenter.y = jump;
+        bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
+        if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
+        {   
+            if (Input.GetButton("Fire3") || Input.GetButton("Fire4")){
+                if (!sticking) {
+    
+                    Vector3 pullCenter = avg;
+                    if (p1Grounded && p2Grounded)
+                    {
+                        pullCenter.y = jump;
+                    }
+                    player1.GetComponent<Rigidbody>().AddForce((pullCenter - player1.transform.position).normalized * jumpMagnitude);
+                    player2.GetComponent<Rigidbody>().AddForce((pullCenter - player2.transform.position).normalized * jumpMagnitude);
+                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton("Fire3") || Input.GetButton("Fire4")) && playerDistance > maxSeparation) {
+                    Vector3 pull = avg;
+                    pull = pull  - player2.transform.position;
+                    pull.x = pull.x /2;
+                    pull.z = pull.z /2;
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude*2);
+                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton("Fire3") || Input.GetButton("Fire4")) && playerDistance > maxSeparation) {
+                    Vector3 pull = avg;
+                    pull = pull  - player1.transform.position;
+                    pull.x = pull.x /2;
+                    pull.z = pull.z /2;
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude *2);
+                } else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
+                } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
+                }
+            } else if (playerDistance > maxSeparation) {
+                player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
+                player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
             }
-            player1.GetComponent<Rigidbody>().AddForce((pullCenter - player1.transform.position).normalized * jumpMagnitude);
-            player2.GetComponent<Rigidbody>().AddForce((pullCenter - player2.transform.position).normalized * jumpMagnitude);
+
         }
     }
 }
