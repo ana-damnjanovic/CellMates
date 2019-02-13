@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class moveCleanUnityCloth : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class moveCleanUnityCloth : MonoBehaviour
     private playerBehaviour p1Behaviour;
     private playerBehaviour p2Behaviour;
 
+    float playerDistance;
+
     public string player1Tag = "Player1";
     public string p1HorizontalInput = "Horizontal";
     public string p1VerticalInput = "Vertical";
@@ -29,13 +32,33 @@ public class moveCleanUnityCloth : MonoBehaviour
 
     public float jumpMagnitude = 500f;
 
+    public int startingTension = 0;                            // The amount of health the player starts the game with.
+    public int currentTension;                                   // The current health the player has.
+    public Slider TensionSlider1;                               // Reference to the UI's TensionSlider1.
+    public Slider TensionSlider2;                               // Reference to the UI's TensionSlider2
+
+    Animator anim;                                              // Reference to the Animator component.
+    AudioSource playerAudio;                                    // Reference to the AudioSource component.
+    moveCleanUnityCloth playerMovement;                              // Reference to the player's movement.
+    bool streching;                                               // True when the player is creating tension.
+
+    public Canvas TextCanvas;
+    public Canvas TextCanvas2;
+    void Awake()
+    {
+        // Set the initial health of the player.
+        currentTension = startingTension;
+        TextCanvas.enabled = false;
+        TextCanvas2.enabled = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         player1 = GameObject.FindWithTag(player1Tag);
         p1RigidBody = player1.GetComponent<Rigidbody>();
         p1RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
-        p1Behaviour = player1.GetComponent<playerBehaviour>(); 
+        p1Behaviour = player1.GetComponent<playerBehaviour>();
 
 
         player2 = GameObject.FindWithTag(player2Tag);
@@ -53,7 +76,8 @@ public class moveCleanUnityCloth : MonoBehaviour
         Vector3 fwd = transform.TransformDirection(Vector3.forward) * 50;
         Debug.DrawRay(player1.transform.position, fwd, Color.red);
         Debug.DrawRay(player2.transform.position, fwd, Color.red);
-
+        TensionSlider1.value = playerDistance * 50;
+        TensionSlider2.value = playerDistance * 50;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -223,7 +247,7 @@ public class moveCleanUnityCloth : MonoBehaviour
         //player1position.y = 0;
         //player2position.y = 0;
 
-        float playerDistance = Vector3.Distance(player1position, player2position);
+        playerDistance = Vector3.Distance(player1position, player2position);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
         // start pulling players together gently when they're grounded and close to max separation
@@ -242,10 +266,14 @@ public class moveCleanUnityCloth : MonoBehaviour
         //}
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
-        {   
-            if (Input.GetButton("Fire3") || Input.GetButton("Fire4")){
-                if (!sticking) {
-    
+        {
+            TextCanvas.enabled = true;
+            TextCanvas2.enabled = true;
+            if (Input.GetButton("Fire3") || Input.GetButton("Fire4"))
+            {
+                if (!sticking)
+                {
+
                     Vector3 pullCenter = avg;
                     if (p1Grounded && p2Grounded)
                     {
@@ -253,28 +281,43 @@ public class moveCleanUnityCloth : MonoBehaviour
                     }
                     player1.GetComponent<Rigidbody>().AddForce((pullCenter - player1.transform.position).normalized * jumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce((pullCenter - player2.transform.position).normalized * jumpMagnitude);
-                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton("Fire3") || Input.GetButton("Fire4")) && playerDistance > maxSeparation) {
+                }
+                else if (p1Behaviour.GetIsSticking() && (Input.GetButton("Fire3") || Input.GetButton("Fire4")) && playerDistance > maxSeparation)
+                {
                     Vector3 pull = avg;
-                    pull = pull  - player2.transform.position;
-                    pull.x = pull.x /2;
-                    pull.z = pull.z /2;
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude*2);
-                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton("Fire3") || Input.GetButton("Fire4")) && playerDistance > maxSeparation) {
+                    pull = pull - player2.transform.position;
+                    pull.x = pull.x / 2;
+                    pull.z = pull.z / 2;
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude * 2);
+                }
+                else if (p2Behaviour.GetIsSticking() && (Input.GetButton("Fire3") || Input.GetButton("Fire4")) && playerDistance > maxSeparation)
+                {
                     Vector3 pull = avg;
-                    pull = pull  - player1.transform.position;
-                    pull.x = pull.x /2;
-                    pull.z = pull.z /2;
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude *2);
-                } else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                    pull = pull - player1.transform.position;
+                    pull.x = pull.x / 2;
+                    pull.z = pull.z / 2;
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude * 2);
+                }
+                else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation)
+                {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
-                } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                }
+                else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation)
+                {
                     player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
                 }
-            } else if (playerDistance > maxSeparation) {
+            }
+            else if (playerDistance > maxSeparation)
+            {
                 player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
             }
 
+        }
+        else
+        {
+            TextCanvas.enabled = false;
+            TextCanvas2.enabled = false;
         }
     }
 }
