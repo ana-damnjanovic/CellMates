@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class membraneController : MonoBehaviour
 {
-    public float maxSeparation = 1.5f;
+    public float maxSeparation = 2.85f;
     private GameObject player1;
     private GameObject player2;
     private playerBehaviour p1Behaviour;
     private playerBehaviour p2Behaviour;
     private GameObject membrane;
     private GameObject membraneSupportSphere;
+    private SphereCollider membraneSupportCollider;
     private Cloth cloth;
     private Material material;
 
@@ -28,6 +29,7 @@ public class membraneController : MonoBehaviour
     {
         membrane = GameObject.FindWithTag(membraneTag);
         membraneSupportSphere = GameObject.FindWithTag(membraneSupportSphereTag);
+        membraneSupportCollider = membraneSupportSphere.GetComponent<SphereCollider>();
         cloth = membrane.GetComponent<Cloth>();
         material = membrane.GetComponent<Renderer>().material;
 
@@ -54,25 +56,27 @@ public class membraneController : MonoBehaviour
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
         bool sticking = p1Sticking || p2Sticking;
 
-        if ((maxSeparation * 0.25f) <= playerDistance && playerDistance < maxSeparation)
+        if ((maxSeparation * 0.75f) <= playerDistance && playerDistance < maxSeparation)
         {
             material.color = Color.Lerp(green, yellow, separation);
         }
 
-        if (playerDistance > maxSeparation || (!p1Grounded && !sticking) || (!p2Grounded && !sticking))
+        else if (playerDistance > maxSeparation || (!p1Grounded && !sticking) || (!p2Grounded && !sticking))
         {
             // increase movement randomness while blob is in the air
-            cloth.randomAcceleration = new Vector3(100f, 100f, 100f);
+            cloth.randomAcceleration = new Vector3(10f, 10f, 10f);
             material.color = green;
         }
         else
         {
             // default value for random movement
-            cloth.randomAcceleration = new Vector3(10f, 10f, 10f);
+            cloth.externalAcceleration = new Vector3(0f, -10f, 0f);
+
+
         }
-        // TODO: potentially add transformations to membraneSupportSphere collider
         membrane.transform.position = avg;
         cloth.ClearTransformMotion();
         membraneSupportSphere.transform.position = avg;
+        membraneSupportCollider.radius = Math.Min(0.7f, 1/(4 * separation));
     }
 }

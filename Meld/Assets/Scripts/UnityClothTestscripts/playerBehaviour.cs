@@ -10,7 +10,7 @@ public class playerBehaviour : MonoBehaviour
     private RaycastHit playerGroundedHit;
     private GameObject player;
     private Rigidbody rb;
-    public float raycastDistance = 0.4f;
+    public float raycastDistance = 0.75f;
 
     public RaycastHit GetGroundedHit()
     {
