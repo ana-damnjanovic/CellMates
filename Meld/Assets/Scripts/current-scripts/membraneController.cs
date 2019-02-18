@@ -46,11 +46,7 @@ public class membraneController : MonoBehaviour
         bool p1Sticking = p1Behaviour.GetIsSticking();
         bool p2Sticking = p2Behaviour.GetIsSticking();
 
-        Vector3 player1position = player1.transform.position;
-        Vector3 player2position = player2.transform.position;
-        player1position.y = 0;
-        player2position.y = 0;
-        float playerDistance = Vector3.Distance(player1position, player2position);
+        float playerDistance = Vector3.Distance(player1.transform.position, player2.transform.position);
         float separation = playerDistance / maxSeparation;
 
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
@@ -71,12 +67,10 @@ public class membraneController : MonoBehaviour
         {
             // default value for random movement
             cloth.externalAcceleration = new Vector3(0f, -10f, 0f);
-
-
         }
         membrane.transform.position = avg;
         cloth.ClearTransformMotion();
         membraneSupportSphere.transform.position = avg;
-        membraneSupportCollider.radius = Math.Min(0.7f, 1/(4 * separation));
+        membraneSupportCollider.radius = Math.Min(0.65f, 1/(4 * separation));
     }
 }
