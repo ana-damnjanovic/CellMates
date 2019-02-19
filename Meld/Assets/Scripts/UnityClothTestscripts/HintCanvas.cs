@@ -10,7 +10,7 @@ public class HintCanvas : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        hintCanvas = this;
+        hintCanvas = this.GetComponent<Canvas>();
         hintCanvas.enabled = false;
     }
 
