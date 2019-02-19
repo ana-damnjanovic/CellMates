@@ -17,6 +17,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     private playerBehaviour p1Behaviour;
     private playerBehaviour p2Behaviour;
     private LayerMask layerMask;
+    private float playerDistance = 0;
 
     public string player1Tag = "Player1";
     public string p1HorizontalInput = "Horizontal";
@@ -30,6 +31,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
     public float jumpMagnitude = 500f;
 
+    public TensionSlider TensionSlider1;
+    public TensionSlider TensionSlider2;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +68,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             Debug.DrawRay(player1.transform.position, fwd, Color.red);
             Debug.DrawRay(player2.transform.position, fwd, Color.red);
         }
-
+        TensionSlider1.SetTension(playerDistance);
+        TensionSlider2.SetTension(playerDistance);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -272,7 +276,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
 
 
-        float playerDistance = Vector3.Distance(player1position, player2position);
+        playerDistance = Vector3.Distance(player1position, player2position);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
         // start pulling players together gently when they're grounded and close to max separation

@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class TensionSlider : MonoBehaviour
 {
-    public Slider TensionSlider;
+    public Slider tensionSlider;
     // Start is called before the first frame update
     private void Awake()
     {
-        TensionSlider = this;
+        tensionSlider = this.GetComponent<Slider>();
     }
 
     public void SetTension(float playerDistance)
     {
-        TensionSlider.value = playerDistance;
+        tensionSlider.value = playerDistance;
     }
 }
