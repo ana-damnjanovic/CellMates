@@ -98,203 +98,119 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         return canStick;
     }
 
+    private void calculatePlayerVelocity(float horizontal, float vertical, Rigidbody rb)
+    {
+        Vector3 movement = new Vector3(horizontal, 0.0f, vertical);
+
+        // Controlling movement speed on the XZ plane
+        movement = movement.normalized * speed;
+        if (movement.magnitude > topSpeed)
+            movement = movement.normalized * topSpeed;
+        // This is to preserve Y movement so that gravity affects it properly
+        movement.y = rb.velocity.y;
+
+        rb.velocity = movement;
+    }
+
+    private bool setPlayerOnOtherPlayer(GameObject player,  playerBehaviour pb, string otherPlayerTag, out bool playerGrounded)
+    {
+        RaycastHit playerGroundedHit;
+        playerGrounded = pb.GetIsGrounded();
+        bool playerOnOtherPlayer = false;
+        if (playerGrounded)
+        {
+            playerGroundedHit = pb.GetGroundedHit();
+            if (playerGroundedHit.rigidbody)
+            {
+                if (playerGroundedHit.rigidbody.CompareTag(otherPlayerTag))
+                {
+                    playerGrounded = false;
+                    playerOnOtherPlayer = true;
+                }
+                else
+                {
+                    playerOnOtherPlayer = false;
+                }
+            }
+        }
+
+        return playerOnOtherPlayer;
+    }
+
+    private void preventPlayerSinking(Rigidbody playerRb, bool playerGrounded)
+    {
+        // This should prevent the player from sinking to the ground
+        playerRb.useGravity = !playerGrounded;
+        // This should also prevent the player from sinking
+        if (playerGrounded)
+        {
+            var temp1 = playerRb.velocity;
+            temp1.y = Math.Max(0, temp1.y);
+            playerRb.velocity = temp1;
+        }
+    }
+
+    private void calculatePlayerSticking(string playerStickButton, bool playerCanStick, GameObject player, GameObject otherPlayer, playerBehaviour playerBehaviour, playerBehaviour otherPlayerBehaviour)
+    {
+        if (Input.GetButton(playerStickButton) && playerCanStick)
+        {
+            player.GetComponent<Rigidbody>().drag = 0;
+            otherPlayer.GetComponent<Rigidbody>().drag = 0;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            playerBehaviour.SetIsSticking(true);
+        }
+        else if (playerCanStick && (!playerBehaviour.GetIsGrounded() || !otherPlayerBehaviour.GetIsGrounded()))
+        {
+            player.GetComponent<Rigidbody>().drag = 10;
+            otherPlayer.GetComponent<Rigidbody>().drag = 10;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+            playerBehaviour.SetIsSticking(false);
+        }
+        else
+        {
+            player.GetComponent<Rigidbody>().drag = 0;
+            otherPlayer.GetComponent<Rigidbody>().drag = 0;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+            playerBehaviour.SetIsSticking(false);
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-    /* 
-        RaycastHit p1FwdHit;
-        bool p1CanStick = false;
-        Vector3 p1Fwd = player1.transform.TransformDirection(Vector3.back);
-        bool p1HitFwd = Physics.Raycast(player1.transform.position, Vector3.back, out p1FwdHit, 1, layerMask);
-
-        if (p1HitFwd && p1FwdHit.collider.CompareTag("stickable"))
-        {
-            p1CanStick = true;
-        }
-        else
-        {
-            p1CanStick = false;
-        }
-
-        RaycastHit p2FwdHit;
-        bool p2CanStick = false;
-        Vector3 p2Fwd = player2.transform.TransformDirection(Vector3.back);
-        bool p2HitFwd = Physics.Raycast(player2.transform.position, Vector3.back, out p2FwdHit, 1, layerMask);
-
-        if (p2HitFwd && p2FwdHit.collider.CompareTag("stickable"))
-        {
-            p2CanStick = true;
-        }
-        else
-        {
-            p2CanStick = false;
-        }
-    */
-
-
-
         if (true || (Vector3.Distance(player1.transform.position, player2.transform.position) <= maxSeparation))
         {
             float p1Horizontal = Input.GetAxis(p1HorizontalInput) * 20;
             float p1Vertical = Input.GetAxis(p1VerticalInput) * 20;
 
-            Vector3 p1Movement = new Vector3(p1Horizontal, 0.0f, p1Vertical);
-
-            // Controlling movement speed on the XZ plane
-            p1Movement = p1Movement.normalized * speed;
-            if (p1Movement.magnitude > topSpeed)
-                p1Movement = p1Movement.normalized * topSpeed;
-            // This is to preserve Y movement so that gravity affects it properly
-            p1Movement.y = p1RigidBody.velocity.y;
-
-            p1RigidBody.velocity = p1Movement;
+            calculatePlayerVelocity(p1Horizontal, p1Vertical, p1RigidBody);
 
             float p2Horizontal = Input.GetAxis(p2HorizontalInput) * 20;
             float p2Vertical = Input.GetAxis(p2VerticalInput) * 20;
 
-            Vector3 p2Movement = new Vector3(p2Horizontal, 0.0f, p2Vertical);
-
-            // Controlling movement speed on the XZ plane
-            p2Movement = p2Movement.normalized * speed;
-            if (p2Movement.magnitude > topSpeed)
-                p2Movement = p2Movement.normalized * topSpeed;
-            // This is to preserve Y movement so that gravity affects it properly
-            p2Movement.y = p2RigidBody.velocity.y;
-
-            p2RigidBody.velocity = p2Movement;
+            calculatePlayerVelocity(p2Horizontal, p2Vertical, p2RigidBody);
         }
 
+        bool p1Grounded;
+        bool p1onp2 = setPlayerOnOtherPlayer(player1, p1Behaviour, player2Tag, out p1Grounded);
+        bool p2Grounded;
+        bool p2onp1 = setPlayerOnOtherPlayer(player2, p2Behaviour, player1Tag, out p2Grounded);
 
-        RaycastHit p1GroundedHit;
-        var p1Ray = new Ray(player1.transform.position, Vector3.down);
-        bool p1Grounded = p1Behaviour.GetIsGrounded();
-        bool p1onp2 = false;
-        if (p1Grounded)
-        {
-            p1GroundedHit = p1Behaviour.GetGroundedHit();
-            if (p1GroundedHit.rigidbody)
-            {
-                if (p1GroundedHit.rigidbody.CompareTag(player2Tag))
-                {
-                    p1Grounded = false;
-                    p1onp2 = true;
-                }
-                else
-                {
-                    p1onp2 = false;
-                }
-            }
-        }
-
-
-        // This should prevent the player from sinking to the ground
-        p1RigidBody.useGravity = !p1Grounded;
-        // This should extra prevent the player from sinking
-        if (p1Grounded)
-        {
-            var temp1 = p1RigidBody.velocity;
-            temp1.y = Math.Max(0, temp1.y);
-            p1RigidBody.velocity = temp1;
-        }
-
-        RaycastHit p2GroundedHit;
-        bool p2Grounded = p2Behaviour.GetIsGrounded();
-        bool p2onp1 = false;
-        if (p2Grounded)
-        {
-            p2GroundedHit = p2Behaviour.GetGroundedHit();
-            if (p2GroundedHit.rigidbody)
-            {
-                if (p2GroundedHit.rigidbody.CompareTag(player1Tag))
-                {
-                    p2Grounded = false;
-                    p2onp1 = true;
-                }
-                else
-                {
-                    p2onp1 = false;
-                }
-            }
-        }
-
-
-        // This should prevent the player from sinking to the ground
-        p2RigidBody.useGravity = !p2Grounded;
-        // This should extra prevent the player from sinking
-        if (p2Grounded)
-        {
-            var temp2 = p2RigidBody.velocity;
-            temp2.y = Math.Max(0, temp2.y);
-            p2RigidBody.velocity = temp2;
-        }
-        Vector3 player1position = player1.transform.position;
-        Vector3 player2position = player2.transform.position;
-        //player1position.y = 0;
-        //player2position.y = 0;
-
+        preventPlayerSinking(p1RigidBody, p1Grounded);
+        preventPlayerSinking(p2RigidBody, p2Grounded);
 
         bool p1CanStick = createStickingRay(player1);
         bool p2CanStick = createStickingRay(player2);
+ 
+        Vector3 player1position = player1.transform.position;
+        Vector3 player2position = player2.transform.position;
 
-        if (Input.GetButton(p1StickButton) && p1CanStick)
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
-            player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            p1Behaviour.SetIsSticking(true);
-        } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) {
-            player1.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().drag = 10;
-            player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p1Behaviour.SetIsSticking(false);
-        }
-        else
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
-            player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p1Behaviour.SetIsSticking(false);
-        }
-        if (Input.GetButton(p2StickButton) && p2CanStick)
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            p2Behaviour.SetIsSticking(true);
-        } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) 
-        {
-            player1.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p2Behaviour.SetIsSticking(false);
-        }
-        else
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p2Behaviour.SetIsSticking(false);
-        }
-
-
+        calculatePlayerSticking(p1StickButton, p1CanStick, player1, player2, p1Behaviour, p2Behaviour);
+        calculatePlayerSticking(p2StickButton, p2CanStick, player2, player1, p2Behaviour, p1Behaviour);
 
         playerDistance = Vector3.Distance(player1position, player2position);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
-        // start pulling players together gently when they're grounded and close to max separation
-        //if ((maxSeparation * 0.25f) <= playerDistance && playerDistance < maxSeparation)
-        //{
-        //    print("case 1");
-        //    // TODO: add more checks for special cases (sticking or stacked players)
-        //    float weakJumpMagnitude = 10;
-        //    if ((maxSeparation * 0.65f) <= playerDistance && playerDistance < maxSeparation)
-        //    {
-        //        weakJumpMagnitude = 15;
-        //    }
-
-        //    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * weakJumpMagnitude);
-        //    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * weakJumpMagnitude);
-        //}
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   
