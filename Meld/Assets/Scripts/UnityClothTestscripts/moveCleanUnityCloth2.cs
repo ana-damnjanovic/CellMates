@@ -20,14 +20,16 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     private float playerDistance = 0;
 
     public string player1Tag = "Player1";
-    public string p1HorizontalInput = "Horizontal";
-    public string p1VerticalInput = "Vertical";
-    public string p1StickButton = "Fire1";
+    public string p1HorizontalInput = "HorizontalP1";
+    public string p1VerticalInput = "VerticalP1";
+    public string p1StickButton = "StickP1";
+    public string p1JumpButton = "JumpP1";
 
     public string player2Tag = "Player2";
-    public string p2HorizontalInput = "Horizontal2";
-    public string p2VerticalInput = "Vertical2";
-    public string p2StickButton = "Fire2";
+    public string p2HorizontalInput = "HorizontalP2";
+    public string p2VerticalInput = "VerticalP2";
+    public string p2StickButton = "StickP2";
+    public string p2JumpButton = "JumpP2";
 
     public float jumpMagnitude = 500f;
 
@@ -296,7 +298,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   
-            if (Input.GetButton("Fire3") || Input.GetButton("Fire4")){
+            if (Input.GetButton(p1JumpButton) || Input.GetButton(p2JumpButton)){
                 if (!sticking) {
     
                     Vector3 pullCenter = avg;
