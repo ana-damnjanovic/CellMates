@@ -1026,7 +1026,6 @@ GameObject:
   - component: {fileID: 1740467986795446620}
   - component: {fileID: 1740467986795446621}
   - component: {fileID: 1740467986795446623}
-  - component: {fileID: 1740467986795446617}
   - component: {fileID: 1740467986795446622}
   - component: {fileID: 1740467986795446616}
   m_Layer: 9
@@ -1131,29 +1130,6 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1740467986795446617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740467986795446592}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d756dc41dbc648d459ba9ebc07fe100b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  topSpeed: 2
-  maxSeperation: 2
-  jump: 10
-  inputHorizontal: Horizontal2
-  inputVertical: Vertical2
-  player1Tag: Player1
-  player2Tag: Player2
-  membraneTag: Membrane
-  jumpMagnitude: 20
-  raycastDistance: 0.4
 --- !u!114 &1740467986795446622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,11 +1176,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1740467987223694318}
-  - component: {fileID: 1740467987223694316}
   - component: {fileID: 1740467987223694317}
   - component: {fileID: 1740467987223694315}
   m_Layer: 0
-  m_Name: PlayerBlob 1
+  m_Name: PlayerBlob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,33 +1203,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1740467987223694316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740467987223694319}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e031add3dd36342a2a5aeeec14e36c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  topSpeed: 3
-  maxSeparation: 2.85
-  jump: 5
-  player1Tag: Player1
-  p1HorizontalInput: Horizontal
-  p1VerticalInput: Vertical
-  p1StickButton: Fire1
-  player2Tag: Player2
-  p2HorizontalInput: Horizontal2
-  p2VerticalInput: Vertical2
-  p2StickButton: Fire2
-  jumpMagnitude: 250
-  startingTension: 0
-  currentTension: 0
 --- !u!114 &1740467987223694317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1292,11 +1240,15 @@ MonoBehaviour:
   p1HorizontalInput: Horizontal
   p1VerticalInput: Vertical
   p1StickButton: Fire1
+  p1JumpButton: JumpP1
   player2Tag: Player2
   p2HorizontalInput: Horizontal2
   p2VerticalInput: Vertical2
   p2StickButton: Fire2
+  p2JumpButton: JumpP1
   jumpMagnitude: 500
+  TensionSlider1: {fileID: 0}
+  TensionSlider2: {fileID: 0}
 --- !u!1 &1740467987252428698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1261,6 @@ GameObject:
   - component: {fileID: 1740467987252428694}
   - component: {fileID: 1740467987252428695}
   - component: {fileID: 1740467987252428697}
-  - component: {fileID: 1740467987252428692}
   - component: {fileID: 1740467987252428696}
   - component: {fileID: 1740467987252428691}
   - component: {fileID: 1740467987252428690}
@@ -1378,29 +1329,6 @@ CapsuleCollider:
   m_Height: 0.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1740467987252428692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740467987252428698}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d756dc41dbc648d459ba9ebc07fe100b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  topSpeed: 2
-  maxSeperation: 2
-  jump: 10
-  inputHorizontal: Horizontal
-  inputVertical: Vertical
-  player1Tag: Player1
-  player2Tag: Player2
-  membraneTag: Membrane
-  jumpMagnitude: 20
-  raycastDistance: 0.4
 --- !u!114 &1740467987252428696
 MonoBehaviour:
   m_ObjectHideFlags: 0
