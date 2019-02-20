@@ -66,7 +66,7 @@ public class membraneController : MonoBehaviour
         else
         {
             // default value for random movement
-            cloth.externalAcceleration = new Vector3(0f, -10f, 0f);
+            cloth.externalAcceleration = new Vector3(0f, 10f, 0f);
         }
         membrane.transform.position = avg;
         cloth.ClearTransformMotion();
