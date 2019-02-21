@@ -1,0 +1,161 @@
+fileFormatVersion: 2
+guid: 271b827aa2513e14fae9ed8716516385
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2100000: skp_front_default.001
+    2100002: _Color_000_1
+    2100004: _Color_A05_2
+    2100006: Translucent_Glass_Gray.001
+    2100008: Translucent_Resin_Crush_Gray
+    2100010: Color_D09
+    2100012: Color_004
+    2100014: Color_005.001
+    2100016: Color_000.001
+    2100018: Metal_Aluminum_Anodized.001
+    2100020: Color_A06
+    2100022: _Metal_Rough_2
+    2100024: Metal_Rusted
+    2100026: Color_I02
+    2100028: Color_A11
+    2100030: Color_I06.001
+    2100032: Color_002.001
+    2100034: 0012_Bisque
+    2100036: _Metal_Aluminum_Anodized_3
+    2100038: Color_D08
+    2100040: Color_E08
+    2100042: Metal_Rough
+    2100044: _Metal_Corrogated_Shiny_3
+    2100046: Translucent_Glass_Green_Dark
+    2100048: _Metal_Corrogated_Shiny_1
+    2100050: _Metal_Aluminum_Anodized_1
+    2100052: Color_D10
+    2100054: Color_D13
+    2100056: Color_H11
+    2100058: Color_009.001
+    2100060: _Metal_Corrogated_Shiny_5
+    2100062: Color_A04
+    2100064: Color_F16
+    2100066: _Metal_Aluminum_Anodized_7
+    2100068: _Metal_Corrogated_Shiny_10
+    2100070: _Metal_Aluminum_Anodized_2
+    2100072: Color_G18
+    2100074: _Metal_Corrogated_Shiny_2
+    2100076: Metal_Corrogated_Shiny.001
+    2100078: _Translucent_Glass_Gray_1
+    2100080: _Metal_Rough_1
+    2100082: _Metal_Aluminum_Anodized_5
+    2100084: _Metal_Corrogated_Shiny_8
+    2100086: _Metal_Corrogated_Shiny_6
+    2100088: _Metal_Rusted_1
+    2100090: _Metal_Corrogated_Shiny_9
+    2100092: _Metal_Corrogated_Shiny_13
+    2100094: Color_008
+    2100096: _Color_002_1
+    2100098: _Fencing_Diamond_Mesh_1
+    2100100: Cladding_Stucco_White
+    2100102: _Metal_Corrogated_Shiny_7
+    2100104: _Metal_Corrogated_Shiny_4
+    2100106: Water_Deep
+    2100108: Fencing_Diamond_Mesh
+    2100110: _Metal_Aluminum_Anodized_6
+    2100112: Color_A05
+    2100114: _Metal_Corrogated_Shiny_11
+    2100116: GC_panel2
+    2100118: _Translucent_Glass_Gray_3
+    2100120: _Translucent_Glass_Green_Dark_2
+    2100122: _Metal_Corrogated_Shiny_12
+    2100124: Metal_Panel
+    2100126: _Translucent_Glass_Gray_2
+    2100128: _Translucent_Glass_Green_Dark_1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Group_237
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
