@@ -1,15 +1,32 @@
 fileFormatVersion: 2
-guid: 6a0957091d2e5b14d89b3ff27548d8ff
+guid: 964ecdafcc8ade942a188a105b02f686
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: soapDispenser_GEO
+    100004: soapHolder_GEO
+    100006: toiletBrushHolder_GEO
+    100008: toothbrushHolder_GEO
     400000: //RootNode
-    2100000: 01 - Default
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Object001
-    6400000: //RootNode
+    400002: soapDispenser_GEO
+    400004: soapHolder_GEO
+    400006: toiletBrushHolder_GEO
+    400008: toothbrushHolder_GEO
+    2100000: metal_aiStandard
+    2100002: ceramic_aiStandard
+    2300000: soapDispenser_GEO
+    2300002: soapHolder_GEO
+    2300004: toiletBrushHolder_GEO
+    2300006: toothbrushHolder_GEO
+    3300000: soapDispenser_GEO
+    3300002: soapHolder_GEO
+    3300004: toiletBrushHolder_GEO
+    3300006: toothbrushHolder_GEO
+    4300000: soapDispenser_GEO
+    4300002: toothbrushHolder_GEO
+    4300004: toiletBrushHolder_GEO
+    4300006: soapHolder_GEO
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -41,9 +58,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 20
+    globalScale: 7
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
