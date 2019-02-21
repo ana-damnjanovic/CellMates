@@ -101,8 +101,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 1740467986475859104}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+    m_Center: {x: -0.029073477, y: -0.14089167, z: -0.0034475029}
+    m_Extent: {x: 0.53031886, y: 0.5193175, z: 0.46771902}
   m_DirtyAABB: 0
 --- !u!183 &1740467986475859135
 Cloth:
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   speed: 1
   topSpeed: 3
   maxSeparation: 2.85
-  jump: 5
+  jump: 25
   player1Tag: Player1
   p1HorizontalInput: HorizontalP1
   p1VerticalInput: VerticalP1
