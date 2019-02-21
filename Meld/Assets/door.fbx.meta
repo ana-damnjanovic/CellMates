@@ -16,6 +16,8 @@ ModelImporter:
     3300002: Handle_Front
     4300000: DoorFrame
     4300002: Handle_Front
+    6400000: DoorFrame
+    6400002: Handle_Front
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -49,7 +51,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1

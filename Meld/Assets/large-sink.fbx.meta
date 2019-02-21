@@ -17,6 +17,8 @@ ModelImporter:
     3300002: Plane
     4300000: Cube.011
     4300002: Plane
+    6400000: Cube.011
+    6400002: Plane
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,7 +52,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
