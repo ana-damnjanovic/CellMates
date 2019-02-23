@@ -10,6 +10,8 @@ TagManager:
   - MembraneSupportSphere
   - stickable
   - Enemy
+  - CM
+  - DeathZone
   layers:
   - Default
   - TransparentFX
