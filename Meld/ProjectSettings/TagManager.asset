@@ -9,6 +9,7 @@ TagManager:
   - Membrane
   - MembraneSupportSphere
   - stickable
+  - Enemy
   layers:
   - Default
   - TransparentFX
