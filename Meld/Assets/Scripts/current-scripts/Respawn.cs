@@ -6,18 +6,31 @@ using UnityEngine.SceneManagement;
 public class Respawn : MonoBehaviour
 {
     private CheckpointManager cm;
-    private bool died;
+    private playerBehaviour playerbehaviour;
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("CM").GetComponent<CheckpointManager>();
         transform.position = cm.lastCheckpointPosition;
+        playerbehaviour = gameObject.GetComponent<playerBehaviour>();
     }
 
-    void OnTriggerEnter(Collider collision)
+    void FixedUpdate()
     {
-        if (collision.CompareTag("DeathZone"))
+        RaycastHit playerGroundedHit;
+        bool playerGrounded = playerbehaviour.GetIsGrounded();
+        if (playerGrounded)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            playerGroundedHit = playerbehaviour.GetGroundedHit();
+            if (playerGroundedHit.collider)
+            {
+                if (playerGroundedHit.collider.CompareTag("DeathZone"))
+                {
+                    GameObject.FindGameObjectWithTag("Player1").transform.position = cm.lastCheckpointPosition;
+                    GameObject.FindGameObjectWithTag("Player2").transform.position = cm.lastCheckpointPosition;
+                    GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
+                    GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
+                }
+            }
         }
     }
 }
