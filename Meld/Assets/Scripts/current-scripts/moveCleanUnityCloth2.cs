@@ -7,8 +7,9 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 {
     public float speed = 1;
     public float topSpeed = 3;
+    public float minSpeed = 0.8f;
     public float maxSeparation = 1.5f;
-    public float jump = 5;
+    public float jump = 25;
     Rigidbody p1RigidBody;
     Rigidbody p2RigidBody;
     Vector3 movement;
@@ -30,8 +31,15 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public string p2VerticalInput = "VerticalP2";
     public string p2StickButton = "StickP2";
     public string p2JumpButton = "JumpP2";
+    public string flingUp = "FlingUp";
+    public string flingDown = "FlingDown";
+    public string flingLeft = "FlingLeft";
+    public string flingRight = "FlingRight";
+    public float jumpMagnitude = 300f;
+    private Animator anim;
+    private Animator anim2;
 
-    public float jumpMagnitude = 500f;
+    private bool jumping = false;
 
     public TensionSlider TensionSlider1;
     public TensionSlider TensionSlider2;
@@ -43,11 +51,15 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         p1RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         p1Behaviour = player1.GetComponent<playerBehaviour>(); 
 
+        anim = player1.transform.GetChild(0).GetComponent<Animator>();
+
 
         player2 = GameObject.FindWithTag(player2Tag);
         p2RigidBody = player2.GetComponent<Rigidbody>();
         p2RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         p2Behaviour = player2.GetComponent<playerBehaviour>();
+
+        anim2 = player2.transform.GetChild(0).GetComponent<Animator>();
 
         // Makes sticking rays ignore players, cell membrane, and support structure
         LayerMask playerLayer = 1 << 9;
@@ -70,8 +82,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             Debug.DrawRay(player1.transform.position, fwd, Color.red);
             Debug.DrawRay(player2.transform.position, fwd, Color.red);
         }
-        TensionSlider1.SetTension(playerDistance);
-        TensionSlider2.SetTension(playerDistance);
+        //TensionSlider1.SetTension(playerDistance);
+        //TensionSlider2.SetTension(playerDistance);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -89,7 +101,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         foreach (Vector3 dir in directions) {
             bool hit = Physics.Raycast(player.transform.position, dir, out rayHit, 1, layerMask);
-            if (hit && rayHit.collider.CompareTag("stickable"))
+            if (hit && rayHit.transform.CompareTag("stickable"))
             {
                 canStick = true;
             }
@@ -135,32 +147,50 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         if (true || (Vector3.Distance(player1.transform.position, player2.transform.position) <= maxSeparation))
         {
-            float p1Horizontal = Input.GetAxis(p1HorizontalInput) * 20;
-            float p1Vertical = Input.GetAxis(p1VerticalInput) * 20;
+            float p1Horizontal = Input.GetAxis(p1HorizontalInput);
+            float p1Vertical = Input.GetAxis(p1VerticalInput);
+
+            float p2Horizontal = Input.GetAxis(p2HorizontalInput);
+            float p2Vertical = Input.GetAxis(p2VerticalInput);
 
             Vector3 p1Movement = new Vector3(p1Horizontal, 0.0f, p1Vertical);
 
+            float horizontal = 0;
+            float vertical = 0;
+
+            if ((p1Horizontal != 0) && (p2Horizontal != 0)){
+                horizontal = p1Horizontal/p2Horizontal;
+            }
+
+            if ((p1Vertical != 0) && (p2Vertical != 0)){
+                vertical = p1Vertical/p2Vertical;
+            }
+
+            speed += (horizontal + vertical)/20;
+
+            if (speed > topSpeed) {
+                speed = topSpeed;
+            } else if ((speed < minSpeed) || ((horizontal == 0) && (vertical == 0))) {
+                speed = minSpeed;
+            }
+
             // Controlling movement speed on the XZ plane
             p1Movement = p1Movement.normalized * speed;
-            if (p1Movement.magnitude > topSpeed)
-                p1Movement = p1Movement.normalized * topSpeed;
             // This is to preserve Y movement so that gravity affects it properly
             p1Movement.y = p1RigidBody.velocity.y;
 
-            p1RigidBody.velocity = p1Movement;
+            
 
-            float p2Horizontal = Input.GetAxis(p2HorizontalInput) * 20;
-            float p2Vertical = Input.GetAxis(p2VerticalInput) * 20;
+
 
             Vector3 p2Movement = new Vector3(p2Horizontal, 0.0f, p2Vertical);
 
             // Controlling movement speed on the XZ plane
             p2Movement = p2Movement.normalized * speed;
-            if (p2Movement.magnitude > topSpeed)
-                p2Movement = p2Movement.normalized * topSpeed;
             // This is to preserve Y movement so that gravity affects it properly
             p2Movement.y = p2RigidBody.velocity.y;
 
+            p1RigidBody.velocity = p1Movement;
             p2RigidBody.velocity = p2Movement;
         }
 
@@ -174,7 +204,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             p1GroundedHit = p1Behaviour.GetGroundedHit();
             if (p1GroundedHit.rigidbody)
             {
-                if (p1GroundedHit.rigidbody.CompareTag(player2Tag))
+                if (p1GroundedHit.transform.CompareTag(player2Tag))
                 {
                     p1Grounded = false;
                     p1onp2 = true;
@@ -205,7 +235,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             p2GroundedHit = p2Behaviour.GetGroundedHit();
             if (p2GroundedHit.rigidbody)
             {
-                if (p2GroundedHit.rigidbody.CompareTag(player1Tag))
+                if (p2GroundedHit.transform.CompareTag(player1Tag))
                 {
                     p2Grounded = false;
                     p2onp1 = true;
@@ -242,7 +272,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player2.GetComponent<Rigidbody>().drag = 0;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p1Behaviour.SetIsSticking(true);
-        } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) {
+        } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded()) && !Input.GetButton(p1StickButton)) {
             player1.GetComponent<Rigidbody>().drag = 10;
             player2.GetComponent<Rigidbody>().drag = 10;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
@@ -261,7 +291,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player2.GetComponent<Rigidbody>().drag = 0;
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p2Behaviour.SetIsSticking(true);
-        } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) 
+        } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded()) && !Input.GetButton(p1StickButton)) 
         {
             player1.GetComponent<Rigidbody>().drag = 10;
             player2.GetComponent<Rigidbody>().drag = 10;
@@ -296,9 +326,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         //    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * weakJumpMagnitude);
         //}
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
+        
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   
-            if (Input.GetButton(p1JumpButton) || Input.GetButton(p2JumpButton)){
+            if (Input.GetButtonDown(p1JumpButton) || Input.GetButtonDown(p2JumpButton)){
+                jumping = true;
                 if (!sticking) {
     
                     Vector3 pullCenter = avg;
@@ -308,28 +340,41 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     }
                     player1.GetComponent<Rigidbody>().AddForce((pullCenter - player1.transform.position).normalized * jumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce((pullCenter - player2.transform.position).normalized * jumpMagnitude);
-                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
+                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) && (playerDistance > maxSeparation - 1)){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
-                    pull.x = pull.x /2;
-                    pull.z = pull.z /2;
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude/2);
-                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude * 6);
+                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) && (playerDistance > maxSeparation - 1)){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
-                    pull.x = pull.x /2;
-                    pull.z = pull.z /2;
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude/2);
-                } else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude * 6);
+                } /* else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
+                }*/
+            } /* else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton))){
+                if (Input.GetButton(flingUp)) {
+                    player2.GetComponent<Rigidbody>().AddForce((Vector3.up).normalized * jumpMagnitude/2);
                 }
-            } else if (playerDistance > maxSeparation) {
+                    
+            }  else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton))){
+                if (Input.GetButton(flingUp)) {
+                    player1.GetComponent<Rigidbody>().AddForce((Vector3.up).normalized * jumpMagnitude/2);
+                }
+                    
+            }*/
+            
+            
+            //else if (playerDistance > maxSeparation) {
                 //player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 //player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
-            }
+            //}
 
+        } else if (jumping && (p1Grounded || p2Grounded)) {
+            jumping = false;
+            anim.SetTrigger("JustJumped");
+            anim2.SetTrigger("JustJumped");
         }
     }
 }
