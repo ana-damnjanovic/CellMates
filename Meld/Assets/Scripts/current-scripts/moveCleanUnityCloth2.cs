@@ -88,11 +88,34 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back};
 
         foreach (Vector3 dir in directions) {
-            bool hit = Physics.Raycast(player.transform.position, dir, out rayHit, 1, layerMask);
+            bool hit = Physics.SphereCast(player.transform.position, player.GetComponent<SphereCollider>().radius, dir, out rayHit, 1, layerMask);
             if (hit && rayHit.transform.CompareTag("stickable"))
             {
                 canStick = true;
             }
+            // TODO: uncomment and improve after alpha
+            //else if (hit && rayHit.transform.CompareTag("stickable-move"))
+            //{
+            //    canStick = true;
+            //    float p1Horizontal = Input.GetAxis(p1HorizontalInput);
+            //    float p1Vertical = Input.GetAxis(p1VerticalInput);
+
+            //    float p2Horizontal = Input.GetAxis(p2HorizontalInput);
+            //    float p2Vertical = Input.GetAxis(p2VerticalInput);
+
+            //    Vector3 move;
+            //    if (player.transform.name == "Player 1")
+            //    {
+            //        move = new Vector3(p1Horizontal, 0.0f, p1Vertical);
+            //    }
+            //    else
+            //    {
+            //        move = new Vector3(p2Horizontal, 0.0f, p2Vertical);
+            //    }
+
+            //    move.y = rayHit.transform.GetComponent<Rigidbody>().velocity.y;
+            //    rayHit.transform.GetComponent<Rigidbody>().velocity = move;
+            //}
         }
 
         return canStick;
@@ -101,38 +124,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-    /* 
-        RaycastHit p1FwdHit;
-        bool p1CanStick = false;
-        Vector3 p1Fwd = player1.transform.TransformDirection(Vector3.back);
-        bool p1HitFwd = Physics.Raycast(player1.transform.position, Vector3.back, out p1FwdHit, 1, layerMask);
-
-        if (p1HitFwd && p1FwdHit.collider.CompareTag("stickable"))
-        {
-            p1CanStick = true;
-        }
-        else
-        {
-            p1CanStick = false;
-        }
-
-        RaycastHit p2FwdHit;
-        bool p2CanStick = false;
-        Vector3 p2Fwd = player2.transform.TransformDirection(Vector3.back);
-        bool p2HitFwd = Physics.Raycast(player2.transform.position, Vector3.back, out p2FwdHit, 1, layerMask);
-
-        if (p2HitFwd && p2FwdHit.collider.CompareTag("stickable"))
-        {
-            p2CanStick = true;
-        }
-        else
-        {
-            p2CanStick = false;
-        }
-    */
-
-
-
         if (true || (Vector3.Distance(player1.transform.position, player2.transform.position) <= maxSeparation))
         {
             float p1Horizontal = Input.GetAxis(p1HorizontalInput) * 20;
@@ -186,9 +177,12 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     p1onp2 = false;
                 }
             }
-            if (p1GroundedHit.transform.CompareTag("maze")) {
-                    p1Maze = true;
-            } else  {
+            if (p1GroundedHit.transform.CompareTag("maze"))
+            {
+                p1Maze = true;
+            }
+            else
+            {
                 p1Maze = false;
             }
         }
@@ -222,10 +216,12 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     p2onp1 = false;
                 }
             }
-
-            if (p2GroundedHit.transform.CompareTag("maze")) {
-                    p2Maze = true;
-            } else  {
+            if (p2GroundedHit.transform.CompareTag("maze"))
+            {
+                p2Maze = true;
+            }
+            else
+            {
                 p2Maze = false;
             }
         }
@@ -233,13 +229,19 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         Camera mazecam = GameObject.FindWithTag("mazecam").GetComponent<Camera>();
         Camera maincam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
-        if (p1Maze || p2Maze){
+        if (p1Maze || p2Maze)
+        {
             maincam.enabled = false;
             mazecam.enabled = true;
-        } else {
+            mazecam.GetComponent<CameraController>().enabled = true;
+        }
+        else
+        {
             maincam.enabled = true;
             mazecam.enabled = false;
+            mazecam.GetComponent<CameraController>().enabled = false;
         }
+
 
 
         // This should prevent the player from sinking to the ground
@@ -267,8 +269,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p1Behaviour.SetIsSticking(true);
         } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) {
-            player1.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().drag = 10;
+            //player1.GetComponent<Rigidbody>().drag = 10;
+            //player2.GetComponent<Rigidbody>().drag = 10;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p1Behaviour.SetIsSticking(false);
         }
@@ -287,8 +289,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             p2Behaviour.SetIsSticking(true);
         } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) 
         {
-            player1.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().drag = 10;
+            //player1.GetComponent<Rigidbody>().drag = 10;
+            //player2.GetComponent<Rigidbody>().drag = 10;
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p2Behaviour.SetIsSticking(false);
         }
@@ -322,16 +324,21 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   
-            if (Input.GetButton(p1JumpButton) || Input.GetButton(p2JumpButton)){
-                if (!sticking) {
+            if (Input.GetButtonDown(p1JumpButton) || Input.GetButtonDown(p2JumpButton)){
+                if (!sticking && (p1Grounded || p2Grounded)) {
     
                     Vector3 pullCenter = avg;
                     if (p1Grounded && p2Grounded)
                     {
                         pullCenter.y = jump;
                     }
-                    player1.GetComponent<Rigidbody>().AddForce((pullCenter - player1.transform.position).normalized * jumpMagnitude);
-                    player2.GetComponent<Rigidbody>().AddForce((pullCenter - player2.transform.position).normalized * jumpMagnitude);
+                    Vector3 temp = player1.transform.position;
+                    temp.y = 0;
+                    Vector3 temp1 = player2.transform.position;
+                    temp1.y = 0;
+
+                    player1.GetComponent<Rigidbody>().AddForce((pullCenter - temp).normalized * jumpMagnitude);
+                    player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
                 } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;

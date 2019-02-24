@@ -49,6 +49,6 @@ public class playerBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         var ray = new Ray(player.transform.position, Vector3.down);
-        isGrounded = Physics.Raycast(ray, out playerGroundedHit, raycastDistance);
+        isGrounded = Physics.SphereCast(ray, player.GetComponent<SphereCollider>().radius, out playerGroundedHit, raycastDistance);
     }
 }

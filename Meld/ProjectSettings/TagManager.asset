@@ -10,9 +10,8 @@ TagManager:
   - MembraneSupportSphere
   - stickable
   - Enemy
-  - maze
   - mazecam
-  - maincam
+  - maze
   layers:
   - Default
   - TransparentFX
