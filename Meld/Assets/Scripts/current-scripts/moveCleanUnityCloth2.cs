@@ -89,7 +89,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         foreach (Vector3 dir in directions) {
             bool hit = Physics.Raycast(player.transform.position, dir, out rayHit, 1, layerMask);
-            if (hit && rayHit.collider.CompareTag("stickable"))
+            if (hit && rayHit.transform.CompareTag("stickable"))
             {
                 canStick = true;
             }
@@ -164,6 +164,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             p2RigidBody.velocity = p2Movement;
         }
 
+        bool p1Maze = false;
+        bool p2Maze = false;
 
         RaycastHit p1GroundedHit;
         var p1Ray = new Ray(player1.transform.position, Vector3.down);
@@ -183,6 +185,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 {
                     p1onp2 = false;
                 }
+            }
+            if (p1GroundedHit.transform.CompareTag("maze")) {
+                    p1Maze = true;
+            } else  {
+                p1Maze = false;
             }
         }
 
@@ -215,6 +222,23 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     p2onp1 = false;
                 }
             }
+
+            if (p2GroundedHit.transform.CompareTag("maze")) {
+                    p2Maze = true;
+            } else  {
+                p2Maze = false;
+            }
+        }
+
+        Camera mazecam = GameObject.FindWithTag("mazecam").GetComponent<Camera>();
+        Camera maincam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+        if (p1Maze || p2Maze){
+            maincam.enabled = false;
+            mazecam.enabled = true;
+        } else {
+            maincam.enabled = true;
+            mazecam.enabled = false;
         }
 
 
