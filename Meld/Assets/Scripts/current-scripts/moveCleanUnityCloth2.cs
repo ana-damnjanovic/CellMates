@@ -70,8 +70,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             Debug.DrawRay(player1.transform.position, fwd, Color.red);
             Debug.DrawRay(player2.transform.position, fwd, Color.red);
         }
-        TensionSlider1.SetTension(playerDistance);
-        TensionSlider2.SetTension(playerDistance);
+        //TensionSlider1.SetTension(playerDistance);
+        //TensionSlider2.SetTension(playerDistance);
     }
 
     private void OnCollisionEnter(Collision collision)

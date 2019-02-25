@@ -23,7 +23,7 @@ public class Respawn : MonoBehaviour
             playerGroundedHit = playerbehaviour.GetGroundedHit();
             if (playerGroundedHit.collider)
             {
-                if (playerGroundedHit.collider.CompareTag("DeathZone"))
+                if (playerGroundedHit.transform.CompareTag("DeathZone"))
                 {
                     GameObject.FindGameObjectWithTag("Player1").transform.position = cm.lastCheckpointPosition;
                     GameObject.FindGameObjectWithTag("Player2").transform.position = cm.lastCheckpointPosition;
