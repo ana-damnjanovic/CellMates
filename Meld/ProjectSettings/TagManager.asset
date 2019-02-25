@@ -12,6 +12,8 @@ TagManager:
   - Enemy
   - mazecam
   - maze
+  - CM
+  - DeathZone
   layers:
   - Default
   - TransparentFX
