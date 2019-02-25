@@ -35,6 +35,9 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
     public TensionSlider TensionSlider1;
     public TensionSlider TensionSlider2;
+
+    public AudioClip jumpSound;
+    private AudioSource source;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +57,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         LayerMask cellLayer = 1 << 10;
         LayerMask supportLayer = 1 << 11;
         layerMask = ~(playerLayer | cellLayer | supportLayer);
+
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -157,6 +162,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         bool p1Maze = false;
         bool p2Maze = false;
+        bool p1EndMaze = false;
+        bool p2EndMaze = false;
 
         RaycastHit p1GroundedHit;
         var p1Ray = new Ray(player1.transform.position, Vector3.down);
@@ -184,6 +191,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             else
             {
                 p1Maze = false;
+            }
+            if (p1GroundedHit.transform.CompareTag("EndMaze"))
+            {
+                p1EndMaze = true;
             }
         }
 
@@ -224,10 +235,15 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             {
                 p2Maze = false;
             }
+            if (p2GroundedHit.transform.CompareTag("EndMaze"))
+            {
+                p2EndMaze = true;
+            }
         }
 
         Camera mazecam = GameObject.FindWithTag("mazecam").GetComponent<Camera>();
         Camera maincam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        //Camera revcam = GameObject.FindWithTag("ReverseCamera").GetComponent<Camera>();
 
         if (p1Maze || p2Maze)
         {
@@ -339,6 +355,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
                     player1.GetComponent<Rigidbody>().AddForce((pullCenter - temp).normalized * jumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
+                    source.PlayOneShot(jumpSound, 0.25f);
                 } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
