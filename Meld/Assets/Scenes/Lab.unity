@@ -21154,7 +21154,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1616735324}
   - component: {fileID: 1616735323}
-  - component: {fileID: 1616735322}
   - component: {fileID: 1616735321}
   m_Layer: 0
   m_Name: MazeCamera
@@ -21178,14 +21177,6 @@ MonoBehaviour:
   player1: {fileID: 141254962}
   player2: {fileID: 1093523055}
   smoothing: 5
---- !u!81 &1616735322
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616735320}
-  m_Enabled: 1
 --- !u!20 &1616735323
 Camera:
   m_ObjectHideFlags: 0
