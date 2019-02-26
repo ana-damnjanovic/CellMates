@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class moveCleanUnityCloth2 : MonoBehaviour
 {
-    public float speed = 1;
-    public float topSpeed = 3;
-    public float maxSeparation = 1.5f;
+    public float topSpeed = GameManager.topSpeed;
+    public float maxSeparation = GameManager.maxSeparation;
     public float jump = 5;
     Rigidbody p1RigidBody;
     Rigidbody p2RigidBody;
-    Vector3 movement;
     private GameObject player1;
     private GameObject player2;
     private playerBehaviour p1Behaviour;
@@ -129,36 +127,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (true || (Vector3.Distance(player1.transform.position, player2.transform.position) <= maxSeparation))
-        {
-            float p1Horizontal = Input.GetAxis(p1HorizontalInput) * 20;
-            float p1Vertical = Input.GetAxis(p1VerticalInput) * 20;
-
-            Vector3 p1Movement = new Vector3(p1Horizontal, 0.0f, p1Vertical);
-
-            // Controlling movement speed on the XZ plane
-            p1Movement = p1Movement.normalized * speed;
-            if (p1Movement.magnitude > topSpeed)
-                p1Movement = p1Movement.normalized * topSpeed;
-            // This is to preserve Y movement so that gravity affects it properly
-            p1Movement.y = p1RigidBody.velocity.y;
-
-            p1RigidBody.velocity = p1Movement;
-
-            float p2Horizontal = Input.GetAxis(p2HorizontalInput) * 20;
-            float p2Vertical = Input.GetAxis(p2VerticalInput) * 20;
-
-            Vector3 p2Movement = new Vector3(p2Horizontal, 0.0f, p2Vertical);
-
-            // Controlling movement speed on the XZ plane
-            p2Movement = p2Movement.normalized * speed;
-            if (p2Movement.magnitude > topSpeed)
-                p2Movement = p2Movement.normalized * topSpeed;
-            // This is to preserve Y movement so that gravity affects it properly
-            p2Movement.y = p2RigidBody.velocity.y;
-
-            p2RigidBody.velocity = p2Movement;
-        }
+        p1Behaviour.SetVelocity(Input.GetAxis(p1HorizontalInput), Input.GetAxis(p1VerticalInput));
+        p2Behaviour.SetVelocity(Input.GetAxis(p2HorizontalInput), Input.GetAxis(p2VerticalInput));
 
         bool p1Maze = false;
         bool p2Maze = false;
@@ -323,20 +293,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         playerDistance = Vector3.Distance(player1position, player2position);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
-        // start pulling players together gently when they're grounded and close to max separation
-        //if ((maxSeparation * 0.25f) <= playerDistance && playerDistance < maxSeparation)
-        //{
-        //    print("case 1");
-        //    // TODO: add more checks for special cases (sticking or stacked players)
-        //    float weakJumpMagnitude = 10;
-        //    if ((maxSeparation * 0.65f) <= playerDistance && playerDistance < maxSeparation)
-        //    {
-        //        weakJumpMagnitude = 15;
-        //    }
-
-        //    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * weakJumpMagnitude);
-        //    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * weakJumpMagnitude);
-        //}
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   
