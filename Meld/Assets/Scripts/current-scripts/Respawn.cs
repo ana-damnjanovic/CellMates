@@ -27,6 +27,8 @@ public class Respawn : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player2").transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.450197f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.46423f);
                 GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
                 GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
+                GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = false;
+                GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = true;
             }
         } else if (p2Behaviour.GetIsGrounded())
         {
@@ -37,7 +39,8 @@ public class Respawn : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player2").transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.450197f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.46423f);
                 GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
                 GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
-            }
+                GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = false;
+                GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = true;
         }
     }
 }
