@@ -41,6 +41,7 @@ public class Respawn : MonoBehaviour
                 GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
                 GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = false;
                 GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = true;
+            }
         }
     }
 }
