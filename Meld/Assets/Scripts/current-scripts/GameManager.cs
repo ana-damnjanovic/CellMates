@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static float speed = 1;
     public static float topSpeed = 3;
     public static float rayCastDistance = 0.75f;
+    public static float maxSpringDistance = 1.5f;
 
     void Awake()
     {

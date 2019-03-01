@@ -6,30 +6,37 @@ using UnityEngine.SceneManagement;
 public class Respawn : MonoBehaviour
 {
     private CheckpointManager cm;
-    private playerBehaviour playerbehaviour;
+    private playerBehaviour p1Behaviour;
+    private playerBehaviour p2Behaviour;
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("CM").GetComponent<CheckpointManager>();
-        transform.position = cm.lastCheckpointPosition;
-        playerbehaviour = gameObject.GetComponent<playerBehaviour>();
+        p1Behaviour = GameObject.FindGameObjectWithTag("Player1").GetComponent<playerBehaviour>();
+        p2Behaviour = GameObject.FindGameObjectWithTag("Player2").GetComponent<playerBehaviour>();
     }
 
     void FixedUpdate()
     {
         RaycastHit playerGroundedHit;
-        bool playerGrounded = playerbehaviour.GetIsGrounded();
-        if (playerGrounded)
+        if (p1Behaviour.GetIsGrounded())
         {
-            playerGroundedHit = playerbehaviour.GetGroundedHit();
-            if (playerGroundedHit.collider)
+            playerGroundedHit = p1Behaviour.GetGroundedHit();
+            if (playerGroundedHit.transform.CompareTag("DeathZone"))
             {
-                if (playerGroundedHit.transform.CompareTag("DeathZone"))
-                {
-                    GameObject.FindGameObjectWithTag("Player1").transform.position = cm.lastCheckpointPosition;
-                    GameObject.FindGameObjectWithTag("Player2").transform.position = cm.lastCheckpointPosition;
-                    GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
-                    GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
-                }
+                GameObject.FindGameObjectWithTag("Player1").transform.position = new Vector3(cm.lastCheckpointPosition.x + 0.613803f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z + 0.20123f);
+                GameObject.FindGameObjectWithTag("Player2").transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.450197f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.46423f);
+                GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
+                GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
+            }
+        } else if (p2Behaviour.GetIsGrounded())
+        {
+            playerGroundedHit = p2Behaviour.GetGroundedHit();
+            if (playerGroundedHit.transform.CompareTag("DeathZone"))
+            {
+                GameObject.FindGameObjectWithTag("Player1").transform.position = new Vector3(cm.lastCheckpointPosition.x + 0.613803f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z + 0.20123f);
+                GameObject.FindGameObjectWithTag("Player2").transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.450197f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.46423f);
+                GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
+                GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
             }
         }
     }

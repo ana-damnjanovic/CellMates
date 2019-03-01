@@ -16,6 +16,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     private playerBehaviour p2Behaviour;
     private LayerMask layerMask;
     private float playerDistance = 0;
+    private bool p1AbleToJump = false;
+    private bool p2AbleToJump = false;
 
     public string player1Tag = "Player1";
     public string p1HorizontalInput = "HorizontalP1";
@@ -73,6 +75,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             Debug.DrawRay(player1.transform.position, fwd, Color.red);
             Debug.DrawRay(player2.transform.position, fwd, Color.red);
         }
+
+        p1AbleToJump = Input.GetButtonDown(p1JumpButton);
+        p2AbleToJump = Input.GetButtonDown(p2JumpButton);
+
         //TensionSlider1.SetTension(playerDistance);
         //TensionSlider2.SetTension(playerDistance);
     }
@@ -289,30 +295,51 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         }
 
 
+        Vector3 player1positionNoY = player1position;
+        Vector3 player2positionNoY = player2position;
+        player1positionNoY.y = 0;
+        player2positionNoY.y = 0;
 
-        playerDistance = Vector3.Distance(player1position, player2position);
+        playerDistance = Vector3.Distance(player1positionNoY, player2positionNoY);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
+        if (p1Grounded || p2Grounded) {
+            player1.GetComponent<SpringJoint>().maxDistance = GameManager.maxSpringDistance;
+        }
+
+
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
+
+        // Players are max seperated, or in the air
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   
-            if (Input.GetButtonDown(p1JumpButton) || Input.GetButtonDown(p2JumpButton)){
+            // Players are trying to jump
+            if (p1AbleToJump || p2AbleToJump){
+
+                // Players aren't sticking, and at least one of them is on the ground
                 if (!sticking && (p1Grounded || p2Grounded)) {
     
                     Vector3 pullCenter = avg;
+
+                    // If both players are on the ground, pull them upwards
                     if (p1Grounded && p2Grounded)
                     {
                         pullCenter.y = jump;
                     }
+
+                    // Remove vertical portions so that we don't lose upward force
                     Vector3 temp = player1.transform.position;
-                    temp.y = 0;
+                    //temp.y = 0;
                     Vector3 temp1 = player2.transform.position;
-                    temp1.y = 0;
+                    //temp1.y = 0;
 
                     player1.GetComponent<Rigidbody>().AddForce((pullCenter - temp).normalized * jumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
                     source.PlayOneShot(jumpSound, 0.25f);
-                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
+                    player1.GetComponent<SpringJoint>().maxDistance = 0;
+
+
+                }/* else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
@@ -328,7 +355,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
-                }
+                }*/
+
+                p1AbleToJump = false;
+                p2AbleToJump = false;
             } else if (playerDistance > maxSeparation) {
                 //player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 //player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
