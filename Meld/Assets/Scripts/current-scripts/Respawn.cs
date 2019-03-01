@@ -10,13 +10,7 @@ public class Respawn : MonoBehaviour
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("CM").GetComponent<CheckpointManager>();
-        if (gameObject.tag == "Player1")
-        {
-            transform.position = cm.lastCheckpointPositionp1;
-        }
-        else {
-            transform.position = cm.lastCheckpointPositionp2;
-        }
+        transform.position = cm.lastCheckpointPosition;
         playerbehaviour = gameObject.GetComponent<playerBehaviour>();
     }
 
@@ -31,10 +25,10 @@ public class Respawn : MonoBehaviour
             {
                 if (playerGroundedHit.transform.CompareTag("DeathZone"))
                 {
-                    GameObject.FindGameObjectWithTag("Player1").transform.position = cm.lastCheckpointPositionp1;
-                    GameObject.FindGameObjectWithTag("Player2").transform.position = cm.lastCheckpointPositionp2;
-                    GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPositionmem;
-                    GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPositionmemsphere;
+                    GameObject.FindGameObjectWithTag("Player1").transform.position = cm.lastCheckpointPosition;
+                    GameObject.FindGameObjectWithTag("Player2").transform.position = cm.lastCheckpointPosition;
+                    GameObject.FindGameObjectWithTag("Membrane").transform.position = cm.lastCheckpointPosition;
+                    GameObject.FindGameObjectWithTag("MembraneSupportSphere").transform.position = cm.lastCheckpointPosition;
                     GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = false;
                     GameObject.FindGameObjectWithTag("Membrane").GetComponent<Cloth>().enabled = true;
                 }
