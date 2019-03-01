@@ -339,7 +339,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
 
 
-                }/* else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
+                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
@@ -355,7 +355,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
-                }*/
+                }
 
                 p1AbleToJump = false;
                 p2AbleToJump = false;
