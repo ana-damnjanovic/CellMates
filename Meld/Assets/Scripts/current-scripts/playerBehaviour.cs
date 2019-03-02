@@ -41,8 +41,8 @@ public class playerBehaviour : MonoBehaviour
 
     public void SetVelocity(float horizontalAxis, float verticalAxis)
     {
-        float horizontal = horizontalAxis * 20;
-        float vertical = verticalAxis * 20;
+        float horizontal = horizontalAxis * 2.5f;
+        float vertical = verticalAxis * 2.5f;
 
         Vector3 movement = new Vector3(horizontal, 0.0f, vertical);
  
@@ -52,7 +52,9 @@ public class playerBehaviour : MonoBehaviour
         // This is to preserve Y movement so that gravity affects it properly
         movement.y = rb.velocity.y;
 
-        rb.velocity = movement;
+        rb.AddForce(movement);
+        //rb.velocity = movement;
+       // print(rb.velocity);
     }
 
     // Start is called before the first frame update
