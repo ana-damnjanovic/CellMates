@@ -73,6 +73,6 @@ public class membraneController : MonoBehaviour
         membraneSupportSphere.transform.position = avg;
         membraneSupportCollider.radius = Math.Min(0.65f, 1/(4 * separation));
 
-        membrane.transform.localScale = new Vector3(playerDistance/2, membrane.transform.localScale.y, playerDistance/2);
+        //membrane.transform.localScale = new Vector3(playerDistance/2, membrane.transform.localScale.y, playerDistance/2);
     }
 }
