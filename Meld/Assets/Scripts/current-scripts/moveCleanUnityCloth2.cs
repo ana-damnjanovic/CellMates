@@ -36,7 +36,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public bool p1EndMaze = false;
     public bool p2EndMaze = false;
 
-    public float jumpMagnitude = 500f;
+    private float jumpMagnitude = GameManager.jumpMagnitude;
+    private float stickingJumpMagnitude = GameManager.stickingJumpMagnitude;
 
     public TensionSlider TensionSlider1;
     public TensionSlider TensionSlider2;
@@ -138,8 +139,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        p1Behaviour.SetVelocity(Input.GetAxis(p1HorizontalInput), Input.GetAxis(p1VerticalInput));
-        p2Behaviour.SetVelocity(Input.GetAxis(p2HorizontalInput), Input.GetAxis(p2VerticalInput));
+        p1Behaviour.SetVelocity(Input.GetAxis(p1HorizontalInput), Input.GetAxis(p1VerticalInput), p2Behaviour.GetIsSticking());
+        p2Behaviour.SetVelocity(Input.GetAxis(p2HorizontalInput), Input.GetAxis(p2VerticalInput), p1Behaviour.GetIsSticking());
 
         // bool p1Maze = false;
         // bool p2Maze = false;
@@ -308,12 +309,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         playerDistance = Vector3.Distance(player1positionNoY, player2positionNoY);
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
-        if (p1Grounded || p2Grounded) {
+        bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
+
+        if (p1Grounded || p2Grounded || sticking) {
             player1.GetComponent<SpringJoint>().maxDistance = GameManager.maxSpringDistance;
         }
-
-
-        bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
 
         // Players are max seperated, or in the air
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
@@ -351,14 +351,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude);
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
                 } else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
-                    
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * jumpMagnitude);
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
                 } else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {

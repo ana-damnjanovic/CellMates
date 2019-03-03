@@ -39,23 +39,44 @@ public class playerBehaviour : MonoBehaviour
         isSticking = isPlayerSticking;
     }
 
-    public void SetVelocity(float horizontalAxis, float verticalAxis)
+    public void SetPlayerMass(bool isPartnerSticking)
     {
-        float horizontal = horizontalAxis * 2.5f;
-        float vertical = verticalAxis * 2.5f;
+        if (isPartnerSticking)
+        {
+            rb.mass = GameManager.stickingPlayerMass;
+        }
+        else
+        {
+            rb.mass = GameManager.playerMass;
+        }
+    }
 
-        Vector3 movement = new Vector3(horizontal, 0.0f, vertical);
+    public void SetVelocity(float horizontalAxis, float verticalAxis, bool isPartnerSticking)
+    {
+        Vector3 movement = new Vector3(horizontalAxis, 0.0f, verticalAxis);
+        SetPlayerMass(isPartnerSticking);
  
         movement = movement.normalized * speed;
         if (movement.magnitude > topSpeed)
             movement = movement.normalized * topSpeed;
 
-        // Uncomment this block for movement with momentum
-        // zero the y momentum, otherwise player will fly upwards forever when jumping
         movement.y = 0;
         rb.AddForce(movement);
+        Vector3 clampVel = rb.velocity;
+        if (isPartnerSticking)
+        {
+            clampVel.x = Mathf.Clamp(clampVel.x, -topSpeed *20, topSpeed * 20);
+            clampVel.z = Mathf.Clamp(clampVel.z, -topSpeed *20, topSpeed *20);
+        } else
+        {
+            // normal movement on ground  
+            clampVel.x = Mathf.Clamp(clampVel.x, -topSpeed, topSpeed);
+            clampVel.z = Mathf.Clamp(clampVel.z, -topSpeed, topSpeed);
+        }
+        rb.velocity = clampVel;
 
-        // Uncomment this block if you want movement without momentum
+
+        // Use this block if you want simple movement without momentum
         // This is to preserve Y movement so that gravity affects it properly
         //movement.y = rb.velocity.y;
         //rb.velocity = movement;
