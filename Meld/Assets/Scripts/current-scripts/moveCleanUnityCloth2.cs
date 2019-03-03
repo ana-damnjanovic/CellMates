@@ -31,6 +31,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public string p2StickButton = "StickP2";
     public string p2JumpButton = "JumpP2";
 
+    public bool p1Maze = false;
+    public bool p2Maze = false;
+    public bool p1EndMaze = false;
+    public bool p2EndMaze = false;
+
     public float jumpMagnitude = 500f;
 
     public TensionSlider TensionSlider1;
@@ -136,10 +141,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         p1Behaviour.SetVelocity(Input.GetAxis(p1HorizontalInput), Input.GetAxis(p1VerticalInput));
         p2Behaviour.SetVelocity(Input.GetAxis(p2HorizontalInput), Input.GetAxis(p2VerticalInput));
 
-        bool p1Maze = false;
-        bool p2Maze = false;
-        bool p1EndMaze = false;
-        bool p2EndMaze = false;
+        // bool p1Maze = false;
+        // bool p2Maze = false;
+        // bool p1EndMaze = false;
+        // bool p2EndMaze = false;
 
         RaycastHit p1GroundedHit;
         var p1Ray = new Ray(player1.transform.position, Vector3.down);
@@ -221,18 +226,18 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         Camera maincam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         //Camera revcam = GameObject.FindWithTag("ReverseCamera").GetComponent<Camera>();
 
-        if (p1Maze || p2Maze)
-        {
-            maincam.enabled = false;
-            mazecam.enabled = true;
-            mazecam.GetComponent<CameraController>().enabled = true;
-        }
-        else
-        {
-            maincam.enabled = true;
-            mazecam.enabled = false;
-            mazecam.GetComponent<CameraController>().enabled = false;
-        }
+        // if (p1Maze || p2Maze)
+        // {
+        //     maincam.enabled = false;
+        //     mazecam.enabled = true;
+        //     mazecam.GetComponent<CameraController>().enabled = true;
+        // }
+        // else
+        // {
+        //     maincam.enabled = true;
+        //     mazecam.enabled = false;
+        //     mazecam.GetComponent<CameraController>().enabled = false;
+        // }
 
 
 
