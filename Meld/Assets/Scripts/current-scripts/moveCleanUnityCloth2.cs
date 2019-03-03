@@ -333,10 +333,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     Vector3 temp1 = player2.transform.position;
                     //temp1.y = 0;
 
-                    player1.GetComponent<Rigidbody>().AddForce((pullCenter - temp).normalized * jumpMagnitude);
-                    player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
-                    //player1.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
-                    //player2.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
+                    //player1.GetComponent<Rigidbody>().AddForce((pullCenter - temp).normalized * jumpMagnitude);
+                    //player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
+                    player1.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
+                    player2.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
                     source.PlayOneShot(jumpSound, 0.25f);
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
 

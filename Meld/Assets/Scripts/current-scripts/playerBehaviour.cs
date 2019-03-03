@@ -49,12 +49,10 @@ public class playerBehaviour : MonoBehaviour
         movement = movement.normalized * speed;
         if (movement.magnitude > topSpeed)
             movement = movement.normalized * topSpeed;
-        // This is to preserve Y movement so that gravity affects it properly
-        movement.y = rb.velocity.y;
 
+        // zero the y momentum, otherwise player will fly upwards forever when jumping
+        movement.y = 0;
         rb.AddForce(movement);
-        //rb.velocity = movement;
-       // print(rb.velocity);
     }
 
     // Start is called before the first frame update
