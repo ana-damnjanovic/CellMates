@@ -41,18 +41,24 @@ public class playerBehaviour : MonoBehaviour
 
     public void SetVelocity(float horizontalAxis, float verticalAxis)
     {
-        float horizontal = horizontalAxis * 20;
-        float vertical = verticalAxis * 20;
+        float horizontal = horizontalAxis * 2.5f;
+        float vertical = verticalAxis * 2.5f;
 
         Vector3 movement = new Vector3(horizontal, 0.0f, vertical);
  
         movement = movement.normalized * speed;
         if (movement.magnitude > topSpeed)
             movement = movement.normalized * topSpeed;
-        // This is to preserve Y movement so that gravity affects it properly
-        movement.y = rb.velocity.y;
 
-        rb.velocity = movement;
+        // Uncomment this block for movement with momentum
+        // zero the y momentum, otherwise player will fly upwards forever when jumping
+        movement.y = 0;
+        rb.AddForce(movement);
+
+        // Uncomment this block if you want movement without momentum
+        // This is to preserve Y movement so that gravity affects it properly
+        //movement.y = rb.velocity.y;
+        //rb.velocity = movement;
     }
 
     // Start is called before the first frame update
