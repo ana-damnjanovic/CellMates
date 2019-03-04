@@ -5,13 +5,13 @@ using UnityEngine;
 public class playerModelController : MonoBehaviour
 {
 
-    public GameObject camera;
+    public Camera camera;
     public Quaternion startingRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        camera = GameObject.FindWithTag("MainCamera");
+        camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         startingRotation = transform.rotation;
     }
 
