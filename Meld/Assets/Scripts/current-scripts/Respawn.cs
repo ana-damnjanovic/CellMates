@@ -45,7 +45,7 @@ public class Respawn : MonoBehaviour
             {
                 respawn();
             }
-        } else if (p2Behaviour.GetIsGrounded())
+        } if (p2Behaviour.GetIsGrounded())
         {
             playerGroundedHit = p2Behaviour.GetGroundedHit();
             if (playerGroundedHit.transform.CompareTag("DeathZone"))
