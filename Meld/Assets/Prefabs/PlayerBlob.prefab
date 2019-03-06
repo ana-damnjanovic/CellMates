@@ -1043,7 +1043,7 @@ Transform:
   m_GameObject: {fileID: 1740467986795446592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.6481969, y: 11.285135, z: -26.799}
-  m_LocalScale: {x: 1, y: 1, z: 1.1955}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 538470785577211099}
   m_Father: {fileID: 1740467987223694318}
@@ -1061,7 +1061,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.08017679}
 --- !u!54 &1740467986795446620
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1141,7 +1141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e94bba172c8bdf468096eb85b77ba23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastDistance: 0.75
 --- !u!1 &1740467987223694319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a520c1ca7495d44ea7c77bbcfe62277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
   topSpeed: 3
   maxSeparation: 2.85
   jump: 25
@@ -1221,9 +1219,13 @@ MonoBehaviour:
   p2VerticalInput: VerticalP2
   p2StickButton: StickP2
   p2JumpButton: JumpP2
-  jumpMagnitude: 300
+  p1Maze: 0
+  p2Maze: 0
+  p1EndMaze: 0
+  p2EndMaze: 0
   TensionSlider1: {fileID: 0}
   TensionSlider2: {fileID: 0}
+  jumpSound: {fileID: 0}
 --- !u!1 &1740467987252428698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e94bba172c8bdf468096eb85b77ba23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastDistance: 0.75
 --- !u!145 &1740467987252428690
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -1504,11 +1505,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b7c620d32e527be4081630f5dde1a84b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 13.17685
+      value: 16.471062
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b7c620d32e527be4081630f5dde1a84b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.507208
+      value: 5.63401
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b7c620d32e527be4081630f5dde1a84b, type: 3}
       propertyPath: m_LocalScale.z
