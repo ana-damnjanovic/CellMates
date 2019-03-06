@@ -62,6 +62,9 @@ public class playerBehaviour : MonoBehaviour
             movement = movement.normalized * topSpeed;
 
         movement.y = 0;
+
+        movement = alignVectorToCurrentCamera(movement);
+
         if (rb.velocity.magnitude <= (topSpeed/2)) {
             rb.velocity += movement;
         } else {
@@ -87,10 +90,16 @@ public class playerBehaviour : MonoBehaviour
         //movement.y = rb.velocity.y;
         //rb.velocity = movement;
 
-        if (horizontalAxis != 0 || verticalAxis != 0) {
-            Debug.Log("lolol");
-            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, Mathf.Atan2(verticalAxis, horizontalAxis) * Mathf.Rad2Deg);
+        if ( alignVectorToCurrentCamera(movement).x != 0 ||  alignVectorToCurrentCamera(movement).z != 0) {
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, Mathf.Atan2(alignVectorToCurrentCamera(movement).z, alignVectorToCurrentCamera(movement).x) * Mathf.Rad2Deg);
         }
+    }
+
+    public Vector3 alignVectorToCurrentCamera(Vector3 movement) {
+       Vector3 directedMovement = Camera.main.transform.TransformDirection(movement);
+       directedMovement.y = 0;
+       directedMovement = directedMovement.normalized * movement.magnitude;
+       return directedMovement;
     }
 
     // Start is called before the first frame update
