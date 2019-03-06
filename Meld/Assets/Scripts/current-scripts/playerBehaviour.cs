@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerBehaviour : MonoBehaviour
 {
@@ -61,7 +62,12 @@ public class playerBehaviour : MonoBehaviour
             movement = movement.normalized * topSpeed;
 
         movement.y = 0;
-        rb.AddForce(movement);
+        if (rb.velocity.magnitude <= (topSpeed/2)) {
+            rb.velocity += movement;
+        } else {
+            rb.AddForce(movement);
+        }
+        
         Vector3 clampVel = rb.velocity;
         if (isPartnerSticking)
         {
@@ -80,6 +86,11 @@ public class playerBehaviour : MonoBehaviour
         // This is to preserve Y movement so that gravity affects it properly
         //movement.y = rb.velocity.y;
         //rb.velocity = movement;
+
+        if (horizontalAxis != 0 || verticalAxis != 0) {
+            Debug.Log("lolol");
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, Mathf.Atan2(verticalAxis, horizontalAxis) * Mathf.Rad2Deg);
+        }
     }
 
     // Start is called before the first frame update
