@@ -12,7 +12,6 @@ public class Respawn : MonoBehaviour
     private GameObject p2;
     private GameObject membrane;
     private GameObject membraneSupportSphere;
-
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("CM").GetComponent<CheckpointManager>();
@@ -26,7 +25,6 @@ public class Respawn : MonoBehaviour
 
     void respawn()
     {
-        SoundEffectController.instance.Damage(); // play the "ouch" sound effect(s)
         p1.transform.position = new Vector3(cm.lastCheckpointPosition.x + 0.613803f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z + 0.20123f);
         p2.transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.450197f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.46423f);
         membrane.transform.position = cm.lastCheckpointPosition;
