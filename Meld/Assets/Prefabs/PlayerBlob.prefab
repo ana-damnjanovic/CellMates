@@ -101,8 +101,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 1740467986475859104}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0.5, z: 0.5}
+    m_Center: {x: 0.029111326, y: -0.24064332, z: 0.06312913}
+    m_Extent: {x: 0.5113803, y: 0.5171247, z: 0.46054024}
   m_DirtyAABB: 0
 --- !u!183 &1740467986475859135
 Cloth:
@@ -1458,6 +1458,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlyrSpikeclip1
       objectReference: {fileID: 0}
+    - target: {fileID: 100072, guid: ea32fd45cfc0a354780ddc60c60dc6b3, type: 3}
+      propertyPath: m_TagString
+      value: Player1Sprite
+      objectReference: {fileID: 0}
     - target: {fileID: 400072, guid: ea32fd45cfc0a354780ddc60c60dc6b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.08
@@ -1514,6 +1518,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: ea32fd45cfc0a354780ddc60c60dc6b3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 837cce949ce8e7f48a87b35b7c21715a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea32fd45cfc0a354780ddc60c60dc6b3, type: 3}
 --- !u!4 &2687381761502113798 stripped
@@ -1532,6 +1540,10 @@ PrefabInstance:
     - target: {fileID: 100072, guid: 7d8bacda81e7e9a4ea2e832761d29d42, type: 3}
       propertyPath: m_Name
       value: Plyr2SpikeClip2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7d8bacda81e7e9a4ea2e832761d29d42, type: 3}
+      propertyPath: m_TagString
+      value: Player2Sprite
       objectReference: {fileID: 0}
     - target: {fileID: 400072, guid: 7d8bacda81e7e9a4ea2e832761d29d42, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1589,6 +1601,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 7d8bacda81e7e9a4ea2e832761d29d42, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 79b7f08d34cc50344b39ab78a162dad0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d8bacda81e7e9a4ea2e832761d29d42, type: 3}
 --- !u!4 &3129468921243378507 stripped
