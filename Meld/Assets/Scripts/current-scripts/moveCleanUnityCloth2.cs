@@ -43,8 +43,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public TensionSlider TensionSlider1;
     public TensionSlider TensionSlider2;
 
-    public AudioClip jumpSound;
-    private AudioSource source;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,8 +62,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         LayerMask cellLayer = 1 << 10;
         LayerMask supportLayer = 1 << 11;
         layerMask = ~(playerLayer | cellLayer | supportLayer);
-
-        source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -85,6 +81,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         p1AbleToJump = Input.GetButtonDown(p1JumpButton);
         p2AbleToJump = Input.GetButtonDown(p2JumpButton);
+
+        if ((Input.GetButtonDown(p1StickButton) && p1Behaviour.GetIsSticking()) || 
+            (Input.GetButtonDown(p2StickButton) && p2Behaviour.GetIsSticking()))
+        {
+            SoundEffectController.instance.Stick();
+        }
+
 
         //TensionSlider1.SetTension(playerDistance);
         //TensionSlider2.SetTension(playerDistance);
@@ -395,9 +398,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     //player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
                     player1.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
-                    source.PlayOneShot(jumpSound, 0.25f);
+                    SoundEffectController.instance.Jump(); 
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
-
 
                 } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
@@ -411,7 +413,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
                     player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                } else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                }
+                else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
