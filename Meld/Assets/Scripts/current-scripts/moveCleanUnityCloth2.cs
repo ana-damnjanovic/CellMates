@@ -343,6 +343,31 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player1.GetComponent<SpringJoint>().maxDistance = GameManager.maxSpringDistance;
         }
 
+
+        player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
+        player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
+        GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = false;
+
+        if (p1Behaviour.GetIsGrounded()) {
+            if (p1Behaviour.GetGroundedHit().transform.CompareTag("Jump")){
+                if ((playerDistance> (maxSeparation - 0.5))) {
+                    player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
+                } else {
+                    GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = true;
+                }     
+            }
+        } 
+
+        if (p2Behaviour.GetIsGrounded()) {
+            if (p2Behaviour.GetGroundedHit().transform.CompareTag("Jump")){
+                if ((playerDistance> (maxSeparation - 0.5))) {
+                    player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
+                } else {
+                    GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = true;
+                }
+            }
+        }
+
         // Players are max seperated, or in the air
         if (playerDistance > (maxSeparation - 0.5) || !p1Grounded || !p2Grounded)
         {   

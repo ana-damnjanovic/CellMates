@@ -91,7 +91,7 @@ public class playerBehaviour : MonoBehaviour
         //rb.velocity = movement;
 
         if ( alignVectorToCurrentCamera(movement).x != 0 ||  alignVectorToCurrentCamera(movement).z != 0) {
-            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, Mathf.Atan2(alignVectorToCurrentCamera(movement).z, alignVectorToCurrentCamera(movement).x) * Mathf.Rad2Deg);
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, Mathf.Atan2(movement.z, movement.x) * Mathf.Rad2Deg);
         }
     }
 
