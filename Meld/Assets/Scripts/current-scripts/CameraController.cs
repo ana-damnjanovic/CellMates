@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CameraController : MonoBehaviour
 {
@@ -71,6 +72,9 @@ public class CameraController : MonoBehaviour
     }
 
     Vector3 getTargetPos (){
-        return (player1.position + player2.position) / 2;
+        var targetPos = (player1.position + player2.position) / 2;
+        targetPos.y = Math.Max(player1.position.y, player2.position.y);
+        return targetPos;
+
     }
 }

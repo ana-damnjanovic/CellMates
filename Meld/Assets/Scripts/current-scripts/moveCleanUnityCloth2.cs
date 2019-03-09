@@ -304,33 +304,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             p2Behaviour.SetIsSticking(false);
         }
 
-        
-        if (p1CanStick) {
-            if (p1Behaviour.GetIsSticking()) {
-                player1.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = false;
-                player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
-            } else {
-                player1.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = true;
-                player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = false;
-            }           
-        } else {
-            player1.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = false;
-            player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = false;
-        }
-
-        if (p2CanStick) {
-            if (p2Behaviour.GetIsSticking()) {
-                player2.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = false;
-                player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
-            } else {
-                player2.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = true;
-                player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = false;
-            } 
-        } else {
-            player2.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = false;
-            player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = false;
-        }
-
+        player1.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = false;
+        player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = false;
+        player2.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = false;
+        player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = false;
+        player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
+        player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
+        GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = false;
 
         Vector3 player1positionNoY = player1position;
         Vector3 player2positionNoY = player2position;
@@ -338,6 +318,29 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         player2positionNoY.y = 0;
 
         playerDistance = Vector3.Distance(player1positionNoY, player2positionNoY);
+
+        if (p1CanStick) {
+            if (p1Behaviour.GetIsSticking()) {
+                player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
+                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 1)) && !p2CanStick){
+                    player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
+                }
+            } else {
+                player1.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = true;
+            }           
+        }
+
+        if (p2CanStick) {
+            if (p2Behaviour.GetIsSticking()) {
+                player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
+                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 1))  && !p1CanStick){
+                    player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
+                }
+            } else {
+                player2.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = true;
+            } 
+        }
+        
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
@@ -345,11 +348,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         if (p1Grounded || p2Grounded || sticking) {
             player1.GetComponent<SpringJoint>().maxDistance = GameManager.maxSpringDistance;
         }
-
-
-        player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
-        player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
-        GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = false;
 
         if (p1Behaviour.GetIsGrounded()) {
             if (p1Behaviour.GetGroundedHit().transform.CompareTag("Jump")){
