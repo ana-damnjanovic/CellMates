@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 04e94863570317f47b489ca936829934
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - jump1: {fileID: 8300000, guid: 8123fbda1e5e1d4448c553a8b1d355c6, type: 3}
+  - jump2: {fileID: 8300000, guid: 7b86f5132452bc24f8c5a54380fe6cc2, type: 3}
+  - jump3: {fileID: 8300000, guid: ef12b1f420219a54994231e1d7df8eb1, type: 3}
+  - damage1: {fileID: 8300000, guid: e3ab5c415effb4e4eaca4994add254fe, type: 3}
+  - damage2: {fileID: 8300000, guid: a514a58ca81312a47a1d8596764bab54, type: 3}
+  - damage3: {fileID: 8300000, guid: 9d48fdb56b42fe346b814c51c0f5b769, type: 3}
+  - damage4: {fileID: 8300000, guid: 2ef24b16256d94b42bbc0b211ff85b5a, type: 3}
+  - stick1: {fileID: 8300000, guid: f6db215dbd6daae42b53bbcd9f9a3379, type: 3}
+  - stick2: {fileID: 8300000, guid: 6319c7e4643efea4aa6e062e7b68d9c4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

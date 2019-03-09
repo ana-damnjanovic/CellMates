@@ -8,11 +8,13 @@ public class Checkpoint : MonoBehaviour
     private playerBehaviour player1behaviour;
     private playerBehaviour player2behaviour;
     private bool checkpointset = false;
+    private Light halo;
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("CM").GetComponent<CheckpointManager>();
         player1behaviour = GameObject.FindGameObjectWithTag("Player1").GetComponent<playerBehaviour>();
         player2behaviour = GameObject.FindGameObjectWithTag("Player2").GetComponent<playerBehaviour>();
+        halo = gameObject.transform.GetChild(0).GetComponent<Light>();
     }
 
     void FixedUpdate()
@@ -29,6 +31,7 @@ public class Checkpoint : MonoBehaviour
                 if (player1GroundedHit.transform.gameObject == gameObject && checkpointset == false)
                 {
                     cm.lastCheckpointPosition = GameObject.FindGameObjectWithTag("Player1").transform.position;
+                    halo.enabled = true;
                     checkpointset = true;
                 }
             }
@@ -39,6 +42,7 @@ public class Checkpoint : MonoBehaviour
                 {
                     cm.lastCheckpointPosition = GameObject.FindGameObjectWithTag("Player2").transform.position;
                     checkpointset = true;
+                    halo.enabled = true;
                 }
             }
         }

@@ -16,6 +16,7 @@ TagManager:
   - DeathZone
   - EndMaze
   - ReverseCamera
+  - Jump
   layers:
   - Default
   - TransparentFX

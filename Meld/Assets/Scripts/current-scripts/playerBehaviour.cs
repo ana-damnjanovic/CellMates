@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerBehaviour : MonoBehaviour
 {
@@ -61,7 +62,15 @@ public class playerBehaviour : MonoBehaviour
             movement = movement.normalized * topSpeed;
 
         movement.y = 0;
-        rb.AddForce(movement);
+
+        //movement = alignVectorToCurrentCamera(movement);
+
+        if (rb.velocity.magnitude <= (topSpeed/2)) {
+            rb.velocity += movement;
+        } else {
+            rb.AddForce(movement);
+        }
+        
         Vector3 clampVel = rb.velocity;
         if (isPartnerSticking)
         {
@@ -80,6 +89,19 @@ public class playerBehaviour : MonoBehaviour
         // This is to preserve Y movement so that gravity affects it properly
         //movement.y = rb.velocity.y;
         //rb.velocity = movement;
+
+        if ( movement.x != 0 ||  movement.z != 0) {
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, (Mathf.Atan2(movement.z, movement.x) * Mathf.Rad2Deg)+180);
+            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, (Mathf.Atan2(alignVectorToCurrentCamera(movement).z, alignVectorToCurrentCamera(movement).x) * Mathf.Rad2Deg)+180);
+        }
+    }
+
+    public Vector3 alignVectorToCurrentCamera(Vector3 movement) {
+        
+        Vector3 directedMovement = Camera.main.transform.TransformDirection(movement);
+        directedMovement.y = 0;
+        directedMovement = directedMovement.normalized * movement.magnitude;
+        return directedMovement;
     }
 
     // Start is called before the first frame update
