@@ -104,7 +104,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         bool canStick = false;
         canStick = false;
 
-        Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back};
+        Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back, Vector3.down};
 
         foreach (Vector3 dir in directions) {
             bool hit = Physics.SphereCast(player.transform.position, player.GetComponent<SphereCollider>().radius, dir, out rayHit, 1, layerMask);
