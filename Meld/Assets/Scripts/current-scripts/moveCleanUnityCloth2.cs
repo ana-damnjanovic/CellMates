@@ -311,6 +311,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
         player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = false;
         GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = false;
+        GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("StickTutorialText").gameObject.GetComponent<Text>().enabled = false;
 
         Vector3 player1positionNoY = player1position;
         Vector3 player2positionNoY = player2position;
@@ -322,7 +323,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         if (p1CanStick) {
             if (p1Behaviour.GetIsSticking()) {
                 player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
-                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 1)) && !p2CanStick){
+                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 0.6)) && !p2CanStick){
                     player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
                 }
             } else {
@@ -333,7 +334,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         if (p2CanStick) {
             if (p2Behaviour.GetIsSticking()) {
                 player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
-                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 1))  && !p1CanStick){
+                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 0.6))  && !p1CanStick){
                     player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
                 }
             } else {
@@ -357,6 +358,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = true;
                 }     
             }
+
+            if (p1Behaviour.GetGroundedHit().transform.CompareTag("StickTutorial")){
+                GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("StickTutorialText").gameObject.GetComponent<Text>().enabled = true;
+            }
         } 
 
         if (p2Behaviour.GetIsGrounded()) {
@@ -367,7 +372,12 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("Seperate").gameObject.GetComponent<Text>().enabled = true;
                 }
             }
+            if (p2Behaviour.GetGroundedHit().transform.CompareTag("StickTutorial")){
+                GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("StickTutorialText").gameObject.GetComponent<Text>().enabled = true;
+            }
         }
+
+        player1.GetComponent<SpringJoint>().enableCollision = !(p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking());
 
         // Players are max seperated, or in the air
         if (playerDistance > (maxSeparation - 0.6) || !p1Grounded || !p2Grounded)
@@ -399,32 +409,34 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     SoundEffectController.instance.Jump(); 
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
 
-                } else if (p1Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
+                } else if (p1Behaviour.GetIsSticking()){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
-                    //pull.y = 0.1f;
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
+                    pull.y += 0.1f;
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
+                    //player1.GetComponent<SpringJoint>().enableCollision = false;
                     //player1.GetComponent<SpringJoint>().maxDistance = 0;
                     //player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& (playerDistance > (maxSeparation - 0.5)) {
+                } else if (p2Behaviour.GetIsSticking()){//&& (playerDistance > (maxSeparation - 0.5)) {
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
-                    //pull.y = 0.1f;
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
+                    pull.y += 0.1f;
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
+                    //player1.GetComponent<SpringJoint>().enableCollision = false;
                     //player1.GetComponent<SpringJoint>().maxDistance = 0;
                     //player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
                 }
-                else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
+                /* else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
-                }
+                }*/
 
                 p1AbleToJump = false;
                 p2AbleToJump = false;

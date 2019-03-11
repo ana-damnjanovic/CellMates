@@ -17,6 +17,9 @@ TagManager:
   - EndMaze
   - ReverseCamera
   - Jump
+  - Player1Sprite
+  - Player2Sprite
+  - StickTutorial
   layers:
   - Default
   - TransparentFX
