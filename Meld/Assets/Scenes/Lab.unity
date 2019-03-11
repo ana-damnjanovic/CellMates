@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14828,12 +14828,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3891967870686355790, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
+    - target: {fileID: 683140971483367061, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 683140971483367061, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
+    - target: {fileID: 3891967870686355790, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
         type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -31473,11 +31473,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3891967870686355790, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 683140971483367061, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
         type: 3}
       propertyPath: m_Enabled
@@ -31487,6 +31482,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891967870686355790, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eee454dd03eeb94ab5b3b2eaf5b12ce, type: 3}
@@ -31662,7 +31662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2144ef21ef3c0784b868fa9047687807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1802651015}
 --- !u!1001 &1961286366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33297,7 +33296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2144ef21ef3c0784b868fa9047687807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1713536627}
 --- !u!1 &2082848532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 84e8213085a73e349a763652dac1f7e3,
@@ -34686,7 +34684,7 @@ PrefabInstance:
     - target: {fileID: 1830733809662203623, guid: 61f2b02ff320682499fbf69efdb680ee,
         type: 3}
       propertyPath: m_TagString
-      value: stickable
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61f2b02ff320682499fbf69efdb680ee, type: 3}
