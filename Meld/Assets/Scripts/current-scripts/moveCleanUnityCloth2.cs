@@ -404,13 +404,21 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& playerDistance > maxSeparation) {
+                    //pull.y = 0.1f;
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
+                    //player1.GetComponent<SpringJoint>().maxDistance = 0;
+                    //player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+                } else if (p2Behaviour.GetIsSticking() && (Input.GetButton(p1StickButton) || Input.GetButton(p2StickButton)) ){//&& (playerDistance > (maxSeparation - 0.5)) {
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
                     pull.x = pull.x /2;
                     pull.z = pull.z /2;
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
+                    //pull.y = 0.1f;
+                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
+                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude * 2);
+                    //player1.GetComponent<SpringJoint>().maxDistance = 0;
+                    //player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
                 }
                 else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
