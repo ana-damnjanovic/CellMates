@@ -98,11 +98,19 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2, false);
     }
 
-    private bool createStickingRay(GameObject player) {
+    private Vector3 getAxisBoost(GameObject obj)
+    {
+        // takes in the hit object from createStickingRay and check's the object's StickableAxis
+        // returns which axis needs to be boosted for the non-sticking player
+        return obj.GetComponent<StickableAxis>().GetStickableAxis();
+    }
+
+    private bool createStickingRay(GameObject player, out Vector3 axisBoost) {
         
         RaycastHit rayHit;
         bool canStick = false;
         canStick = false;
+        axisBoost = Vector3.zero;
 
         Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back, Vector3.down};
 
@@ -111,6 +119,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             if (hit && rayHit.transform.CompareTag("stickable"))
             {
                 canStick = true;
+                axisBoost = getAxisBoost(rayHit.transform.gameObject);
             }
             // TODO: uncomment and improve after alpha
             //else if (hit && rayHit.transform.CompareTag("stickable-move"))
@@ -260,9 +269,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         //player1position.y = 0;
         //player2position.y = 0;
 
-
-        bool p1CanStick = createStickingRay(player1);
-        bool p2CanStick = createStickingRay(player2);
+        Vector3 p1AxisBoost;
+        Vector3 p2AxisBoost;
+        bool p1CanStick = createStickingRay(player1, out p2AxisBoost);
+        bool p2CanStick = createStickingRay(player2, out p1AxisBoost);
 
         if (Input.GetButton(p1StickButton) && p1CanStick)
         {
@@ -412,31 +422,16 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 } else if (p1Behaviour.GetIsSticking()){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
-                    pull.x = pull.x /2;
-                    pull.z = pull.z /2;
-                    pull.y += 0.1f;
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                    //player1.GetComponent<SpringJoint>().enableCollision = false;
-                    //player1.GetComponent<SpringJoint>().maxDistance = 0;
-                    //player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+                    pull.x = pull.x;
+                    pull.z = pull.z;
+                    player2.GetComponent<Rigidbody>().AddForce(((pull).normalized + p2AxisBoost)* stickingJumpMagnitude);
                 } else if (p2Behaviour.GetIsSticking()){//&& (playerDistance > (maxSeparation - 0.5)) {
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
-                    pull.x = pull.x /2;
-                    pull.z = pull.z /2;
-                    pull.y += 0.1f;
-                    player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                    player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                    //player1.GetComponent<SpringJoint>().enableCollision = false;
-                    //player1.GetComponent<SpringJoint>().maxDistance = 0;
-                    //player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+                    pull.x = pull.x;
+                    pull.z = pull.z;
+                    player1.GetComponent<Rigidbody>().AddForce(((pull).normalized + p1AxisBoost)* stickingJumpMagnitude);
                 }
-                /* else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
-                    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
-                } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
-                    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
-                }*/
 
                 p1AbleToJump = false;
                 p2AbleToJump = false;
