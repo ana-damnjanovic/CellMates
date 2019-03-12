@@ -62,7 +62,7 @@ public class playerBehaviour : MonoBehaviour
             if (verticalAxis == 0)
                 temp.z -= (rb.velocity.z) * Time.deltaTime;
         }
-        
+
         rb.velocity = temp;
 
         Vector3 movement = new Vector3(horizontalAxis, 0.0f, verticalAxis);
@@ -116,7 +116,7 @@ public class playerBehaviour : MonoBehaviour
         //rb.velocity = movement;
 
         if ( movement.x != 0 ||  movement.z != 0) {
-            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(movement.z, -movement.x) * Mathf.Rad2Deg));
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(movement.z, -movement.x) * Mathf.Rad2Deg + 180));
             //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.Rotate(GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.localRotation);
             //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.x = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.x -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.x;
             //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.y = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.y -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.y;
