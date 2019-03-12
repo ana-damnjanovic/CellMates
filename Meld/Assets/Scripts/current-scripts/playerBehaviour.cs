@@ -55,10 +55,14 @@ public class playerBehaviour : MonoBehaviour
     public void SetVelocity(float horizontalAxis, float verticalAxis, bool isPartnerSticking)
     {
         var temp = rb.velocity;
-        if (horizontalAxis == 0 && !isPartnerSticking)
-            temp.x -= (rb.velocity.x) * Time.deltaTime;
-        if (verticalAxis == 0 && !isPartnerSticking)
-            temp.z -= (rb.velocity.z) * Time.deltaTime;
+
+        if (!isPartnerSticking) {
+            if (horizontalAxis == 0)
+                temp.x -= (rb.velocity.x) * Time.deltaTime;
+            if (verticalAxis == 0)
+                temp.z -= (rb.velocity.z) * Time.deltaTime;
+        }
+        
         rb.velocity = temp;
 
         Vector3 movement = new Vector3(horizontalAxis, 0.0f, verticalAxis);
@@ -67,7 +71,7 @@ public class playerBehaviour : MonoBehaviour
         movement = movement.normalized * speed;
         if (movement.magnitude > topSpeed)
             movement = movement.normalized * topSpeed;
-
+        
         movement.y = 0;
 
         if (!isPartnerSticking){
@@ -79,8 +83,15 @@ public class playerBehaviour : MonoBehaviour
 
         //movement = alignVectorToCurrentCamera(movement);
 
+        if (!isPartnerSticking) {
+            if ((rb.velocity + movement).magnitude < rb.velocity.magnitude) {
+                movement.x = movement.x * 1.5f;
+                movement.z = movement.z * 1.5f;
+            }
+        }
+
         if (rb.velocity.magnitude <= (topSpeed/2)) {
-            rb.velocity += movement;
+            rb.velocity +=  movement;
         } else {
             rb.AddForce(movement);
         }
