@@ -22,7 +22,8 @@ public class membraneController : MonoBehaviour
     public string player2Tag = "Player2";
 
     private Color green = new Color(0.47f, 0.82f, 0.56f, 0.36f);
-    private Color yellow = new Color(0.82f, 0.81f, 0.47f, 0.36f);
+    //private Color yellow = new Color(0.82f, 0.81f, 0.47f, 0.36f);
+    private Color yellow = new Color(0.92f, 0.91f, 0.57f, 0.56f);
     private Color red = new Color(0.82f, 0.52f, 0.47f, 0.36f);
 
     void Start()

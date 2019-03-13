@@ -54,19 +54,44 @@ public class playerBehaviour : MonoBehaviour
 
     public void SetVelocity(float horizontalAxis, float verticalAxis, bool isPartnerSticking)
     {
+        var temp = rb.velocity;
+
+        if (!isPartnerSticking) {
+            if (horizontalAxis == 0)
+                temp.x -= (rb.velocity.x) * Time.deltaTime;
+            if (verticalAxis == 0)
+                temp.z -= (rb.velocity.z) * Time.deltaTime;
+        }
+
+        rb.velocity = temp;
+
         Vector3 movement = new Vector3(horizontalAxis, 0.0f, verticalAxis);
         SetPlayerMass(isPartnerSticking);
  
         movement = movement.normalized * speed;
         if (movement.magnitude > topSpeed)
             movement = movement.normalized * topSpeed;
-
+        
         movement.y = 0;
+
+        if (!isPartnerSticking){
+            if ((rb.velocity + movement).magnitude < rb.velocity.magnitude) {
+                movement.x = movement.x * 1.2f;
+                movement.z = movement.z * 1.2f;
+            }
+        }
 
         //movement = alignVectorToCurrentCamera(movement);
 
+        if (!isPartnerSticking) {
+            if ((rb.velocity + movement).magnitude < rb.velocity.magnitude) {
+                movement.x = movement.x * 1.5f;
+                movement.z = movement.z * 1.5f;
+            }
+        }
+
         if (rb.velocity.magnitude <= (topSpeed/2)) {
-            rb.velocity += movement;
+            rb.velocity +=  movement;
         } else {
             rb.AddForce(movement);
         }
@@ -91,7 +116,11 @@ public class playerBehaviour : MonoBehaviour
         //rb.velocity = movement;
 
         if ( movement.x != 0 ||  movement.z != 0) {
-            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, (Mathf.Atan2(movement.z, movement.x) * Mathf.Rad2Deg)+180);
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(movement.z, -movement.x) * Mathf.Rad2Deg + 180));
+            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.Rotate(GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.localRotation);
+            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.x = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.x -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.x;
+            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.y = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.y -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.y;
+            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.z = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.z -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.z;
             //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, (Mathf.Atan2(alignVectorToCurrentCamera(movement).z, alignVectorToCurrentCamera(movement).x) * Mathf.Rad2Deg)+180);
         }
     }

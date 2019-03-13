@@ -19,6 +19,9 @@ public class playerModelController : MonoBehaviour
     void Update()
     {
         var cameraRotation = Quaternion.LookRotation(camera.transform.position - transform.position);
+        //transform.Find("Canvas").Rotate(0, cameraRotation.y, 0);
+        //Quaternion oldRotation = transform.Find("Canvas").rotation;
         transform.rotation = cameraRotation;
+        //transform.Find("Canvas").rotation = oldRotation;
     }
 }
