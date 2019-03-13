@@ -11,9 +11,11 @@ public class StickableAxis : MonoBehaviour
 
     public Vector3 GetStickableAxis()
     {
-        if (X) return Vector3.right;
-        if (Y) return Vector3.up;
-        if (Z) return Vector3.forward;
-        else return Vector3.zero;
+        Vector3 result = Vector3.zero;
+        if (X) result += Vector3.right;
+        if (Y) result += Vector3.up;
+        if (Z) result += Vector3.forward;
+        return result;
     }
 }
+
