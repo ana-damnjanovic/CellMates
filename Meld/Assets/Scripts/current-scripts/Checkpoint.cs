@@ -30,7 +30,8 @@ public class Checkpoint : MonoBehaviour
                 player1GroundedHit = player1behaviour.GetGroundedHit();
                 if (player1GroundedHit.transform.gameObject == gameObject && checkpointset == false)
                 {
-                    cm.lastCheckpointPosition = GameObject.FindGameObjectWithTag("Player1").transform.position;
+                    cm.lastCheckpointPosition = this.transform.position;
+                    cm.lastCheckpointPosition.y = GameObject.FindGameObjectWithTag("Player1").transform.position.y + 0.30065f;
                     halo.enabled = true;
                     checkpointset = true;
                 }
@@ -40,7 +41,8 @@ public class Checkpoint : MonoBehaviour
                 player2GroundedHit = player2behaviour.GetGroundedHit();
                 if (player2GroundedHit.transform.gameObject == gameObject && checkpointset == false)
                 {
-                    cm.lastCheckpointPosition = GameObject.FindGameObjectWithTag("Player2").transform.position;
+                    cm.lastCheckpointPosition = this.transform.position;
+                    cm.lastCheckpointPosition.y = GameObject.FindGameObjectWithTag("Player2").transform.position.y + 0.30065f;
                     checkpointset = true;
                     halo.enabled = true;
                 }

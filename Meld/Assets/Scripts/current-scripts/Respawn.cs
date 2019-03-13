@@ -27,8 +27,8 @@ public class Respawn : MonoBehaviour
     void respawn()
     {
         SoundEffectController.instance.Damage(); // play the "ouch" sound effect(s)
-        p1.transform.position = new Vector3(cm.lastCheckpointPosition.x + 0.613803f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z + 0.20123f);
-        p2.transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.450197f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.46423f);
+        p1.transform.position = new Vector3(cm.lastCheckpointPosition.x + 0.008102f, cm.lastCheckpointPosition.y - 0.30065f, cm.lastCheckpointPosition.z + 0.551535f);
+        p2.transform.position = new Vector3(cm.lastCheckpointPosition.x - 0.008102f, cm.lastCheckpointPosition.y, cm.lastCheckpointPosition.z - 0.551535f);
         membrane.transform.position = cm.lastCheckpointPosition;
         membraneSupportSphere.transform.position = cm.lastCheckpointPosition;
         membrane.GetComponent<Cloth>().enabled = false;
