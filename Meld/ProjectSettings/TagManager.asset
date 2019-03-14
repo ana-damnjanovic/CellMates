@@ -20,6 +20,7 @@ TagManager:
   - Player1Sprite
   - Player2Sprite
   - StickTutorial
+  - SpinCamera
   layers:
   - Default
   - TransparentFX

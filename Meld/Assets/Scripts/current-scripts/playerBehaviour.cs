@@ -80,8 +80,9 @@ public class playerBehaviour : MonoBehaviour
                 movement.z = movement.z * 1.2f;
             }
         }
-
-        //movement = alignVectorToCurrentCamera(movement);
+        //if (!playerGroundedHit.transform.CompareTag("maze")){
+          //  movement = alignVectorToCurrentCamera(movement);
+        //}
 
         if (!isPartnerSticking) {
             if ((rb.velocity + movement).magnitude < rb.velocity.magnitude) {
@@ -116,12 +117,7 @@ public class playerBehaviour : MonoBehaviour
         //rb.velocity = movement;
 
         if ( movement.x != 0 ||  movement.z != 0) {
-            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(movement.z, -movement.x) * Mathf.Rad2Deg + 180));
-            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.Rotate(GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.localRotation);
-            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.x = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.x -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.x;
-            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.y = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.y -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.y;
-            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.z = player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation.z -  GameObject.FindWithTag("MainCamera").GetComponent<Camera>().transform.rotation.z;
-            //player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation = Quaternion.Euler(151.16f, 0, (Mathf.Atan2(alignVectorToCurrentCamera(movement).z, alignVectorToCurrentCamera(movement).x) * Mathf.Rad2Deg)+180);
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(movement.z, movement.x) * Mathf.Rad2Deg + 180));
         }
     }
 
