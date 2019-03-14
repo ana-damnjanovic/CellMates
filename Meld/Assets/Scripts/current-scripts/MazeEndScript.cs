@@ -12,6 +12,6 @@ public class MazeEndScript : MonoBehaviour
 
     void OnTriggerEnter()
     {
-        mainCamera.GetComponent<MainCameraController>().flipRotation = true;
+        mainCamera.GetComponent<MainCameraController>().flipCamera();
     }
 }
