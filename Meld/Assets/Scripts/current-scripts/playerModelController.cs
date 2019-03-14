@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerModelController : MonoBehaviour
 {
 
     public Camera camera;
     public Quaternion startingRotation;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +21,6 @@ public class playerModelController : MonoBehaviour
     void Update()
     {
         var cameraRotation = Quaternion.LookRotation(camera.transform.position - transform.position);
-        //transform.Find("Canvas").Rotate(0, cameraRotation.y, 0);
-        //Quaternion oldRotation = transform.Find("Canvas").rotation;
         transform.rotation = cameraRotation;
-        //transform.Find("Canvas").rotation = oldRotation;
     }
 }
