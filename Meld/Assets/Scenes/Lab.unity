@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4857,7 +4857,7 @@ GameObject:
   - component: {fileID: 320612984}
   m_Layer: 0
   m_Name: MazeButton
-  m_TagString: Untagged
+  m_TagString: maze
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5227,7 +5227,7 @@ GameObject:
   - component: {fileID: 334011001}
   m_Layer: 0
   m_Name: Ruler (4)
-  m_TagString: Untagged
+  m_TagString: maze
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31996,7 +31996,7 @@ GameObject:
   - component: {fileID: 1707167838}
   m_Layer: 0
   m_Name: BugPath
-  m_TagString: Untagged
+  m_TagString: maze
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -37003,7 +37003,7 @@ GameObject:
   - component: {fileID: 2115397739}
   m_Layer: 0
   m_Name: BugPath (1)
-  m_TagString: Untagged
+  m_TagString: maze
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -37700,7 +37700,7 @@ GameObject:
   - component: {fileID: 2142210886}
   m_Layer: 0
   m_Name: Ruler (5)
-  m_TagString: Untagged
+  m_TagString: maze
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
