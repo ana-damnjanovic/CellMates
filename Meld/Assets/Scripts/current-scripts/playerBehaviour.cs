@@ -54,6 +54,11 @@ public class playerBehaviour : MonoBehaviour
 
     public void SetVelocity(float horizontalAxis, float verticalAxis, bool isPartnerSticking)
     {
+        // Rotates the input vector to match the cameras Y rotation
+        temp = alignVectorToCurrentCamera(new Vector3(horizontalAxis,0f,verticalAxis));
+        horizontalAxis = temp.x;
+        verticalAxis = temp.z;
+
         var temp = rb.velocity;
 
         if (!isPartnerSticking) {
@@ -80,9 +85,6 @@ public class playerBehaviour : MonoBehaviour
                 movement.z = movement.z * 1.2f;
             }
         }
-        //if (!playerGroundedHit.transform.CompareTag("maze")){
-          //  movement = alignVectorToCurrentCamera(movement);
-        //}
 
         if (!isPartnerSticking) {
             if ((rb.velocity + movement).magnitude < rb.velocity.magnitude) {
@@ -122,8 +124,10 @@ public class playerBehaviour : MonoBehaviour
     }
 
     public Vector3 alignVectorToCurrentCamera(Vector3 movement) {
-        
-        Vector3 directedMovement = Camera.main.transform.TransformDirection(movement);
+        // This removes the downward rotation so we only have the direction the camera 
+        // is facing on the X-Z plane which is what our movement input cares about
+        var camdir = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
+        Vector3 directedMovement = Quaternion.Euler(camdir) * movement; //Camera.main.transform.TransformDirection(movement);
         directedMovement.y = 0;
         directedMovement = directedMovement.normalized * movement.magnitude;
         return directedMovement;
