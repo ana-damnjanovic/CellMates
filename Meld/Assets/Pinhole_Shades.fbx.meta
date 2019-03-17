@@ -1,0 +1,146 @@
+fileFormatVersion: 2
+guid: f53da92e992e41c45b86bfc057f5f6c4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Frame
+    100002: Hinge_1_Left
+    100004: Hinge_1_Right
+    100006: Hinge_2_Left
+    100008: Hinge_2_Right
+    100010: Pinhole_Lens
+    100012: //RootNode
+    100014: Screw_Left
+    100016: Screw_Right
+    100018: Temple_L
+    100020: Temple_R
+    400000: Frame
+    400002: Hinge_1_Left
+    400004: Hinge_1_Right
+    400006: Hinge_2_Left
+    400008: Hinge_2_Right
+    400010: Pinhole_Lens
+    400012: //RootNode
+    400014: Screw_Left
+    400016: Screw_Right
+    400018: Temple_L
+    400020: Temple_R
+    2100000: Gloss Black
+    2100002: Matte Black
+    2100004: Metal
+    2300000: Frame
+    2300002: Hinge_1_Left
+    2300004: Hinge_1_Right
+    2300006: Hinge_2_Left
+    2300008: Hinge_2_Right
+    2300010: Pinhole_Lens
+    2300012: Screw_Left
+    2300014: Screw_Right
+    2300016: Temple_L
+    2300018: Temple_R
+    3300000: Frame
+    3300002: Hinge_1_Left
+    3300004: Hinge_1_Right
+    3300006: Hinge_2_Left
+    3300008: Hinge_2_Right
+    3300010: Pinhole_Lens
+    3300012: Screw_Left
+    3300014: Screw_Right
+    3300016: Temple_L
+    3300018: Temple_R
+    4300000: Frame
+    4300002: Hinge_1_Left
+    4300004: Hinge_1_Right
+    4300006: Hinge_2_Left
+    4300008: Hinge_2_Right
+    4300010: Pinhole_Lens
+    4300012: Screw_Left
+    4300014: Screw_Right
+    4300016: Temple_L
+    4300018: Temple_R
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

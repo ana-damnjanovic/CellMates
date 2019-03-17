@@ -55,20 +55,20 @@ public class playerBehaviour : MonoBehaviour
     public void SetVelocity(float horizontalAxis, float verticalAxis, bool isPartnerSticking)
     {
         // Rotates the input vector to match the cameras Y rotation
-        temp = alignVectorToCurrentCamera(new Vector3(horizontalAxis,0f,verticalAxis));
-        horizontalAxis = temp.x;
-        verticalAxis = temp.z;
+        Vector3 alignedMovement = alignVectorToCurrentCamera(new Vector3(horizontalAxis,0f,verticalAxis));
+        horizontalAxis = alignedMovement.x;
+        verticalAxis = alignedMovement.z;
 
-        var temp = rb.velocity;
+        var decelerationMovement = rb.velocity;
 
         if (!isPartnerSticking) {
             if (horizontalAxis == 0)
-                temp.x -= (rb.velocity.x) * Time.deltaTime;
+                decelerationMovement.x -= (rb.velocity.x) * Time.deltaTime;
             if (verticalAxis == 0)
-                temp.z -= (rb.velocity.z) * Time.deltaTime;
+                decelerationMovement.z -= (rb.velocity.z) * Time.deltaTime;
         }
 
-        rb.velocity = temp;
+        rb.velocity = decelerationMovement;
 
         Vector3 movement = new Vector3(horizontalAxis, 0.0f, verticalAxis);
         SetPlayerMass(isPartnerSticking);
