@@ -9341,8 +9341,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 1740467986475859104}
   m_AABB:
-    m_Center: {x: 0.046313107, y: -0.26846445, z: -0.05140865}
-    m_Extent: {x: 0.51311874, y: 0.53396755, z: 0.4103242}
+    m_Center: {x: 0.03361541, y: -0.26500332, z: 0.0050832033}
+    m_Extent: {x: 0.5157483, y: 0.52286553, z: 0.4143016}
   m_DirtyAABB: 0
 --- !u!183 &1740467986475859135
 Cloth:
@@ -11323,7 +11323,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11582,7 +11582,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -11635,7 +11635,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
