@@ -4749,7 +4749,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.6045301, g: 0.8962264, b: 0.68068045, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5127,7 +5127,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 50
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -9237,8 +9237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbc9f05803fdb44aa1211f562074cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDecals: 100
-  decalSizeMin: 0.5
+  maxDecals: 1000
+  decalSizeMin: 1
   decalSizeMax: 1.5
 --- !u!1 &1740467986475859105
 GameObject:
@@ -9341,8 +9341,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 1740467986475859104}
   m_AABB:
-    m_Center: {x: 0.039423704, y: -0.28845763, z: 0.01646471}
-    m_Extent: {x: 0.51025134, y: 0.5416641, z: 0.39628857}
+    m_Center: {x: 0.046313107, y: -0.26846445, z: -0.05140865}
+    m_Extent: {x: 0.51311874, y: 0.53396755, z: 0.4103242}
   m_DirtyAABB: 0
 --- !u!183 &1740467986475859135
 Cloth:
@@ -10742,13 +10742,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7395936820689345119}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: -0, y: 0.6704763, z: -0.741931, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1740467987804510868}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 95.79199, y: 180, z: -0.000015258789}
 --- !u!198 &8045721441212031949
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -15371,7 +15371,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e27a3e2f84809914fa5bf3a7ac14ce9f, type: 2}
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
