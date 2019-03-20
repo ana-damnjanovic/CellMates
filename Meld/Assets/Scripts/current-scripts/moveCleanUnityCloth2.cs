@@ -48,13 +48,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     {
         player1 = GameObject.FindWithTag(player1Tag);
         p1RigidBody = player1.GetComponent<Rigidbody>();
-        p1RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         p1Behaviour = player1.GetComponent<playerBehaviour>(); 
 
 
         player2 = GameObject.FindWithTag(player2Tag);
         p2RigidBody = player2.GetComponent<Rigidbody>();
-        p2RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         p2Behaviour = player2.GetComponent<playerBehaviour>();
 
         // Makes sticking rays ignore players, cell membrane, and support structure
