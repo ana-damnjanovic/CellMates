@@ -20,6 +20,12 @@ TagManager:
   - Player1Sprite
   - Player2Sprite
   - StickTutorial
+  - SpinCamera
+  - UI
+  - dank
+  - not_dank
+  - dank_enable
+  - dank_canvas
   layers:
   - Default
   - TransparentFX

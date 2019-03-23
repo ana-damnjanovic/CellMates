@@ -23,7 +23,7 @@ public class MazeButtonScript : MonoBehaviour
     {
         if (collision.gameObject == mazeBall)
         {
-            mazeBall.transform.position = gameObject.GetComponent<Renderer>().bounds.center;
+            mazeBall.transform.position = gameObject.GetComponent<Renderer>().bounds.center + new Vector3(0, mazeBall.transform.localScale.y / 2, 0);
             mazeBall.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
         mazeDoor.SetActive(false);

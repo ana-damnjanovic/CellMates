@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -9,12 +10,17 @@ public class Checkpoint : MonoBehaviour
     private playerBehaviour player2behaviour;
     private bool checkpointset = false;
     private Light halo;
+    private ParticleSystem particles;
+    private Text text;
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("CM").GetComponent<CheckpointManager>();
         player1behaviour = GameObject.FindGameObjectWithTag("Player1").GetComponent<playerBehaviour>();
         player2behaviour = GameObject.FindGameObjectWithTag("Player2").GetComponent<playerBehaviour>();
         halo = gameObject.transform.GetChild(0).GetComponent<Light>();
+        particles = gameObject.transform.GetChild(2).GetComponent<ParticleSystem>();
+        text = gameObject.transform.Find("Canvas").gameObject.transform.Find("CheckpointText").GetComponent<Text>();
+        text.enabled = false;
     }
 
     void FixedUpdate()
@@ -34,6 +40,8 @@ public class Checkpoint : MonoBehaviour
                     cm.lastCheckpointPosition.y = GameObject.FindGameObjectWithTag("Player1").transform.position.y + 0.30065f;
                     halo.enabled = true;
                     checkpointset = true;
+                    particles.Play();
+                    text.enabled = true;
                 }
             }
             if (player2Grounded)
@@ -45,6 +53,8 @@ public class Checkpoint : MonoBehaviour
                     cm.lastCheckpointPosition.y = GameObject.FindGameObjectWithTag("Player2").transform.position.y + 0.30065f;
                     checkpointset = true;
                     halo.enabled = true;
+                    particles.Play();
+                    text.enabled = true;
                 }
             }
         }

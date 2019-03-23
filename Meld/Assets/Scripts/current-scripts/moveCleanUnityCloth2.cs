@@ -48,13 +48,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     {
         player1 = GameObject.FindWithTag(player1Tag);
         p1RigidBody = player1.GetComponent<Rigidbody>();
-        p1RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         p1Behaviour = player1.GetComponent<playerBehaviour>(); 
 
 
         player2 = GameObject.FindWithTag(player2Tag);
         p2RigidBody = player2.GetComponent<Rigidbody>();
-        p2RigidBody.constraints = RigidbodyConstraints.FreezeRotation;
         p2Behaviour = player2.GetComponent<playerBehaviour>();
 
         // Makes sticking rays ignore players, cell membrane, and support structure
@@ -362,6 +360,21 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             if (p1Behaviour.GetGroundedHit().transform.CompareTag("StickTutorial")){
                 GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("StickTutorialText").gameObject.GetComponent<Text>().enabled = true;
             }
+            if (p1Behaviour.GetGroundedHit().transform.CompareTag("dank_enable")){
+                GameObject.FindWithTag("dank_canvas").GetComponent<Canvas>().enabled = true;
+                GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().enabled = true;
+                GameObject[] danks = GameObject.FindGameObjectsWithTag("dank");
+                foreach (GameObject dank in danks)
+                {
+                    dank.GetComponent<MeshRenderer>().enabled = true;
+                }
+                GameObject[] not_danks = GameObject.FindGameObjectsWithTag("not_dank");
+                foreach (GameObject not_dank in not_danks)
+                {
+                    not_dank.SetActive(false);
+                }
+                GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+            }
         } 
 
         if (p2Behaviour.GetIsGrounded()) {
@@ -374,6 +387,21 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             }
             if (p2Behaviour.GetGroundedHit().transform.CompareTag("StickTutorial")){
                 GameObject.FindWithTag("MembraneSupportSphere").transform.Find("Canvas").gameObject.transform.Find("StickTutorialText").gameObject.GetComponent<Text>().enabled = true;
+            }
+            if (p2Behaviour.GetGroundedHit().transform.CompareTag("dank_enable")){
+                GameObject.FindWithTag("dank_canvas").GetComponent<Canvas>().enabled = true;
+                GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().enabled = true;
+                GameObject[] danks = GameObject.FindGameObjectsWithTag("dank");
+                foreach (GameObject dank in danks)
+                {
+                    dank.GetComponent<MeshRenderer>().enabled = true;
+                }
+                GameObject[] not_danks = GameObject.FindGameObjectsWithTag("not_dank");
+                foreach (GameObject not_dank in not_danks)
+                {
+                    not_dank.SetActive(false);
+                }
+                GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
             }
         }
 
