@@ -26,6 +26,7 @@ TagManager:
   - not_dank
   - dank_enable
   - dank_canvas
+  - pullable
   layers:
   - Default
   - TransparentFX

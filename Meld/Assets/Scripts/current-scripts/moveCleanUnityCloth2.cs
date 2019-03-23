@@ -96,11 +96,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2, false);
     }
 
-    private bool createStickingRay(GameObject player) {
+    private bool[] createStickingRay(GameObject player) {
         
         RaycastHit rayHit;
         bool canStick = false;
-        canStick = false;
+        bool canPull = false;
 
         Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back, Vector3.down};
 
@@ -109,6 +109,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             if (hit && rayHit.transform.CompareTag("stickable"))
             {
                 canStick = true;
+            }
+            if (hit && rayHit.transform.CompareTag("pullable"))
+            {
+                canPull = true;
             }
             // TODO: uncomment and improve after alpha
             //else if (hit && rayHit.transform.CompareTag("stickable-move"))
@@ -134,8 +138,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             //    rayHit.transform.GetComponent<Rigidbody>().velocity = move;
             //}
         }
-
-        return canStick;
+        if (canPull) {
+            canStick = false;
+        }
+        bool [] ret = new bool[2];
+        ret[0] = canStick;
+        ret[1] = canPull;
+        return ret;
     }
 
     // Update is called once per frame
@@ -258,9 +267,26 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         //player1position.y = 0;
         //player2position.y = 0;
 
+        bool[] p1Tuple = createStickingRay(player1);
+        bool[] p2Tuple = createStickingRay(player2);
 
-        bool p1CanStick = createStickingRay(player1);
-        bool p2CanStick = createStickingRay(player2);
+        bool p1CanStick = p1Tuple[0];
+        bool p1CanPull = p1Tuple[1];
+        bool p2CanStick = p2Tuple[0];
+        bool p2CanPull = p2Tuple[1];
+        p1Behaviour.SetIsPulling(false);
+        p2Behaviour.SetIsPulling(false);
+        if (!Input.GetButton(p1StickButton)){
+            if (player1.GetComponent<FixedJoint>() != null) {
+                Destroy(player1.GetComponent<FixedJoint>());
+            }
+        }
+
+        if (!Input.GetButton(p2StickButton)){
+            if (player2.GetComponent<FixedJoint>() != null) {
+                Destroy(player2.GetComponent<FixedJoint>());
+            }
+        }
 
         if (Input.GetButton(p1StickButton) && p1CanStick)
         {
@@ -268,6 +294,15 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player2.GetComponent<Rigidbody>().drag = 0;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p1Behaviour.SetIsSticking(true);
+
+        } else if (Input.GetButton(p1StickButton) && p1CanPull) {
+            p1Behaviour.SetIsPulling(true);
+            player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+            p1Behaviour.SetIsSticking(true);
+            if (player1.GetComponent<FixedJoint>() == null) {
+                player1.AddComponent<FixedJoint>();
+            }
+            player1.GetComponent<FixedJoint>().connectedBody = GameObject.Find("MazeBall").GetComponent<Rigidbody>();
         } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) {
             //player1.GetComponent<Rigidbody>().drag = 10;
             //player2.GetComponent<Rigidbody>().drag = 10;
@@ -280,6 +315,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player2.GetComponent<Rigidbody>().drag = 0;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p1Behaviour.SetIsSticking(false);
+
         }
         if (Input.GetButton(p2StickButton) && p2CanStick)
         {
@@ -287,6 +323,14 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player2.GetComponent<Rigidbody>().drag = 0;
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p2Behaviour.SetIsSticking(true);
+        }  else if (Input.GetButton(p2StickButton) && p2CanPull) {
+            p2Behaviour.SetIsPulling(true);
+            player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+            p2Behaviour.SetIsSticking(true);
+            if (player2.GetComponent<FixedJoint>() == null) {
+                player2.AddComponent<FixedJoint>();
+            }
+            player2.GetComponent<FixedJoint>().connectedBody = GameObject.Find("MazeBall").GetComponent<Rigidbody>();
         } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) 
         {
             //player1.GetComponent<Rigidbody>().drag = 10;
@@ -339,10 +383,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 player2.transform.Find("Canvas").gameObject.transform.Find("Stick").gameObject.GetComponent<Image>().enabled = true;
             } 
         }
+
+
         
         Vector3 avg = (player1.transform.position + player2.transform.position) / 2;
 
         bool sticking = p1Behaviour.GetIsSticking() || p2Behaviour.GetIsSticking();
+        bool pulling = p1Behaviour.GetIsPulling() || p2Behaviour.GetIsPulling();
 
         if (p1Grounded || p2Grounded || sticking) {
             player1.GetComponent<SpringJoint>().maxDistance = GameManager.maxSpringDistance;
@@ -413,8 +460,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             // Players are trying to jump
             if (p1AbleToJump || p2AbleToJump){
 
-                // Players aren't sticking, and at least one of them is on the ground
-                if (!sticking && (p1Grounded || p2Grounded)) {
+                // Players aren't sticking or pulling, and at least one of them is on the ground
+                if (!sticking && !pulling && (p1Grounded || p2Grounded)) {
 
                     Vector3 pullCenter = avg;
 
@@ -459,6 +506,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     //player1.GetComponent<SpringJoint>().enableCollision = false;
                     //player1.GetComponent<SpringJoint>().maxDistance = 0;
                     //player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+                } else if (p1Behaviour.GetIsPulling()){
+                    player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    Debug.Log("lol");
+                    player1.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * stickingJumpMagnitude);
                 }
                 /* else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
