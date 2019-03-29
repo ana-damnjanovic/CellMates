@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: fd391dd5fc2381342a454dfbb64863a1
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BackBone
+    100004: Backknee1k2
+    100006: Backknee1k2_end
+    100008: BackKneeRIK
+    100010: BackKneeRIK_end
+    100012: BACKLEFTFOOT_IK
+    100014: BACKLEFTKNEE_IK
+    100016: BACKLEFTKNEE_IK_end
+    100018: BacklegfootIK2
+    100020: BackLegL
+    100022: BackLegL.001
+    100024: BackLegL.002
+    100026: BackLegL.003
+    100028: BackLegL.003_end
+    100030: BackLegL.014
+    100032: BackLegL2
+    100034: BackLegR1
+    100036: BackLegR2
+    100038: bACKlEGRFOOT2
+    100040: bACKlEGRFOOT2_end
+    100042: BackLegRightFoorIK
+    100044: BackLegRKnee
+    100046: BackLegRKnee.001
+    100048: BackLegRKnee.001_end
+    100050: BackLegRkNEE2
+    100052: BackLegRkNEE2_end
+    100054: BackLegRKnee_end
+    100056: //RootNode
+    100058: foot2
+    100060: foot2_end
+    100062: FrongLeg_R
+    100064: Front;LehL
+    100066: Front;LehL_end
+    100068: frontfoorrik
+    100070: FrontKneeR
+    100072: FrontKneeR.001
+    100074: FrontKneeR.001_end
+    100076: FrontKneeR_end
+    100078: frontkneerik
+    100080: frontkneerik_end
+    100082: FrontLeg_FOOT_IK
+    100084: FrontLegL2
+    100086: FrontLegLEFTKnee_IK
+    100088: FrontLegLEFTKnee_IK_end
+    100090: FrontLegLKnee
+    100092: FrontLegLKnee_end
+    100094: FrontLegR2
+    100096: FrontLFoot
+    100098: FrontLFoot_end
+    100100: Head
+    100102: Head_end
+    100104: knee
+    100106: knee2
+    100108: knee2_end
+    100110: knee_end
+    100112: mesh
+    100114: MIDDLELEFTFOOT_IK
+    100116: MIDDLELEFTKNEE_IK
+    100118: MIDDLELEFTKNEE_IK_end
+    100120: Root
+    100122: thigh
+    100124: Thigh2
+    400000: Armature
+    400002: BackBone
+    400004: Backknee1k2
+    400006: Backknee1k2_end
+    400008: BackKneeRIK
+    400010: BackKneeRIK_end
+    400012: BACKLEFTFOOT_IK
+    400014: BACKLEFTKNEE_IK
+    400016: BACKLEFTKNEE_IK_end
+    400018: BacklegfootIK2
+    400020: BackLegL
+    400022: BackLegL.001
+    400024: BackLegL.002
+    400026: BackLegL.003
+    400028: BackLegL.003_end
+    400030: BackLegL.014
+    400032: BackLegL2
+    400034: BackLegR1
+    400036: BackLegR2
+    400038: bACKlEGRFOOT2
+    400040: bACKlEGRFOOT2_end
+    400042: BackLegRightFoorIK
+    400044: BackLegRKnee
+    400046: BackLegRKnee.001
+    400048: BackLegRKnee.001_end
+    400050: BackLegRkNEE2
+    400052: BackLegRkNEE2_end
+    400054: BackLegRKnee_end
+    400056: //RootNode
+    400058: foot2
+    400060: foot2_end
+    400062: FrongLeg_R
+    400064: Front;LehL
+    400066: Front;LehL_end
+    400068: frontfoorrik
+    400070: FrontKneeR
+    400072: FrontKneeR.001
+    400074: FrontKneeR.001_end
+    400076: FrontKneeR_end
+    400078: frontkneerik
+    400080: frontkneerik_end
+    400082: FrontLeg_FOOT_IK
+    400084: FrontLegL2
+    400086: FrontLegLEFTKnee_IK
+    400088: FrontLegLEFTKnee_IK_end
+    400090: FrontLegLKnee
+    400092: FrontLegLKnee_end
+    400094: FrontLegR2
+    400096: FrontLFoot
+    400098: FrontLFoot_end
+    400100: Head
+    400102: Head_end
+    400104: knee
+    400106: knee2
+    400108: knee2_end
+    400110: knee_end
+    400112: mesh
+    400114: MIDDLELEFTFOOT_IK
+    400116: MIDDLELEFTKNEE_IK
+    400118: MIDDLELEFTKNEE_IK_end
+    400120: Root
+    400122: thigh
+    400124: Thigh2
+    2100000: Material.006
+    2100002: Material.010
+    4300000: mesh
+    7400000: Walk
+    7400002: Armature|PoseLib
+    7400004: Armature|Walk
+    9500000: //RootNode
+    13700000: mesh
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: 105f27c31e0eba6468d5cf29935b0a99, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.010
+    second: {fileID: 2100000, guid: 105f27c31e0eba6468d5cf29935b0a99, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Walk
+      takeName: Armature|Walk
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
