@@ -395,6 +395,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             player1.GetComponent<SpringJoint>().maxDistance = GameManager.maxSpringDistance;
         }
 
+        if (!p1Grounded || !p2Grounded) {
+            GameObject.FindWithTag("MembraneSupportSphere").transform.Find("SlimeTrail").GetComponent<ParticleSystem>().Play();
+        }
+        
         if (p1Behaviour.GetIsGrounded()) {
             if (p1Behaviour.GetGroundedHit().transform.CompareTag("Jump")){
                 if ((playerDistance> (maxSeparation - 0.6))) {
