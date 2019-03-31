@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class moveCleanUnityCloth2 : MonoBehaviour
 {
@@ -64,7 +65,9 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetButtonDown("Restart")) {
+            SceneManager.LoadScene("Lab", LoadSceneMode.Single);
+        }
         Vector3 down = transform.TransformDirection(Vector3.down) * 10;
         Debug.DrawRay(player1.transform.position, down, Color.green);
         Debug.DrawRay(player2.transform.position, down, Color.green);
@@ -398,7 +401,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         if (!p1Grounded || !p2Grounded) {
             GameObject.FindWithTag("MembraneSupportSphere").transform.Find("SlimeTrail").GetComponent<ParticleSystem>().Play();
         }
-        
+
         if (p1Behaviour.GetIsGrounded()) {
             if (p1Behaviour.GetGroundedHit().transform.CompareTag("Jump")){
                 if ((playerDistance> (maxSeparation - 0.6))) {

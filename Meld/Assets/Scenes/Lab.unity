@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rock_04_Medium (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dc003766beeeb46c9b53521ffb7e6c90, type: 3}
+      propertyPath: m_TagString
+      value: stickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dc003766beeeb46c9b53521ffb7e6c90, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.7150726
@@ -1324,6 +1328,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 900d1a2f522c844e989cf2e5d5fe4f5e, type: 3}
       propertyPath: m_Name
       value: SM_Rock_01_Large (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 900d1a2f522c844e989cf2e5d5fe4f5e, type: 3}
+      propertyPath: m_TagString
+      value: stickable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 900d1a2f522c844e989cf2e5d5fe4f5e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2647,6 +2655,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: cf2b172d6af7e426ca8791a02e066f7b, type: 3}
       propertyPath: m_Name
       value: SM_Rock_03_Large (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cf2b172d6af7e426ca8791a02e066f7b, type: 3}
+      propertyPath: m_TagString
+      value: stickable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cf2b172d6af7e426ca8791a02e066f7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7415,6 +7427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rock_04_Medium
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dc003766beeeb46c9b53521ffb7e6c90, type: 3}
+      propertyPath: m_TagString
+      value: stickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dc003766beeeb46c9b53521ffb7e6c90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.2720299
@@ -7817,7 +7833,6 @@ GameObject:
   - component: {fileID: 225667444}
   - component: {fileID: 225667443}
   - component: {fileID: 225667442}
-  - component: {fileID: 225667441}
   m_Layer: 0
   m_Name: book (12)
   m_TagString: Untagged
@@ -7839,18 +7854,6 @@ Transform:
   m_Father: {fileID: 1076573673}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -92.00001}
---- !u!114 &225667441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225667439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d967348537da94c9e29a1fa2a524d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &225667442
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13180,24 +13183,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 253797412}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &261665846 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: f3a11330d97ffb64ca74fb221491098a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1348371786}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &261665847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 261665846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d967348537da94c9e29a1fa2a524d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &263363026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13289,7 +13274,6 @@ GameObject:
   - component: {fileID: 265332388}
   - component: {fileID: 265332387}
   - component: {fileID: 265332386}
-  - component: {fileID: 265332385}
   m_Layer: 0
   m_Name: book (12)
   m_TagString: Untagged
@@ -13311,18 +13295,6 @@ Transform:
   m_Father: {fileID: 117966693}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -92.00001}
---- !u!114 &265332385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265332383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d967348537da94c9e29a1fa2a524d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &265332386
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13760,6 +13732,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 288c938d03c42442fae387c8d72b3b1e, type: 3}
       propertyPath: m_Name
       value: SM_Rock_01_Medium
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 288c938d03c42442fae387c8d72b3b1e, type: 3}
+      propertyPath: m_TagString
+      value: stickable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 288c938d03c42442fae387c8d72b3b1e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16692,24 +16668,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9233c592d9914c926066ff30386e0, type: 3}
---- !u!1 &412183932 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3129468921243090795, guid: d0abfd0e27d5a3543aced007cae60cc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 49000642}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &412183934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412183932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2144ef21ef3c0784b868fa9047687807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &414019525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28987,6 +28945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rock_01_Large
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 900d1a2f522c844e989cf2e5d5fe4f5e, type: 3}
+      propertyPath: m_TagString
+      value: stickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 900d1a2f522c844e989cf2e5d5fe4f5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.243097
@@ -30000,6 +29962,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 01b3f25e088bc404ea633fb3c1592052, type: 3}
       propertyPath: m_Name
       value: SM_Rock_03_Medium
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 01b3f25e088bc404ea633fb3c1592052, type: 3}
+      propertyPath: m_TagString
+      value: stickable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 01b3f25e088bc404ea633fb3c1592052, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37179,6 +37145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rock_03_Large
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cf2b172d6af7e426ca8791a02e066f7b, type: 3}
+      propertyPath: m_TagString
+      value: stickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cf2b172d6af7e426ca8791a02e066f7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.247738
@@ -37237,24 +37207,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 91e626d289c414874b4652864f0b1f1e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf2b172d6af7e426ca8791a02e066f7b, type: 3}
---- !u!1 &1042183094 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100002, guid: 547642a27aefed74a84beb850da379ad,
-    type: 3}
-  m_PrefabInstance: {fileID: 647151914}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1042183099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042183094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23fa698560b688845bf08bafe6dc1b28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1043017452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46008,18 +45960,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1300591783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300591780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23fa698560b688845bf08bafe6dc1b28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1308169929
 GameObject:
   m_ObjectHideFlags: 0
@@ -49846,24 +49786,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: -24.410002, z: 0}
---- !u!1 &1495294316 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2687381761502342182, guid: d0abfd0e27d5a3543aced007cae60cc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 49000642}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1495294318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495294316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2144ef21ef3c0784b868fa9047687807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1503430880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50660,6 +50582,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 198fcda7f4c2e48b2a8b8de54ce52501, type: 3}
       propertyPath: m_Name
       value: SM_Rock_02_Medium 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 198fcda7f4c2e48b2a8b8de54ce52501, type: 3}
+      propertyPath: m_TagString
+      value: stickable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 198fcda7f4c2e48b2a8b8de54ce52501, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55923,6 +55849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rock_02_Medium
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 43bb03d1fe24d41d7930206054e7fb91, type: 3}
+      propertyPath: m_TagString
+      value: stickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43bb03d1fe24d41d7930206054e7fb91, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.8072357
@@ -56058,24 +55988,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1d0b0d17fcd84b3438b494d3142b02c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5af1c711033181d4dbb3d23d27185c13, type: 3}
---- !u!1 &1628260346 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1674853875, guid: 1808b915d4f307a41b7d6fcf558014f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2021552252}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1628260348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628260346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d967348537da94c9e29a1fa2a524d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1638290410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57489,6 +57401,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rock_05_Medium
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 035bce8219e83470281200cd7481de9c, type: 3}
+      propertyPath: m_TagString
+      value: stickable
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 035bce8219e83470281200cd7481de9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.543705
@@ -58541,24 +58457,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 105f27c31e0eba6468d5cf29935b0a99, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5af1c711033181d4dbb3d23d27185c13, type: 3}
---- !u!1 &1810633831 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 239905720, guid: 1808b915d4f307a41b7d6fcf558014f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2021552252}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1810633836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1810633831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d967348537da94c9e29a1fa2a524d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1818228370 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 065c6d0bc1e23b243bfe99b0cde19a7c,
@@ -63064,6 +62962,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 75e2bd7daa78a424a9992ecacae643f7, type: 3}
       propertyPath: m_Name
       value: SM_Rock_02_Large
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 75e2bd7daa78a424a9992ecacae643f7, type: 3}
+      propertyPath: m_TagString
+      value: stickable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 75e2bd7daa78a424a9992ecacae643f7, type: 3}
       propertyPath: m_LocalPosition.x
