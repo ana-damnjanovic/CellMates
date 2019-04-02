@@ -30,7 +30,6 @@ public class SoundEffectController : MonoBehaviour
             instance = this;
         else if (instance != this)
             Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Start()

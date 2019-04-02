@@ -21,6 +21,10 @@ public class playerModelController : MonoBehaviour
     void Update()
     {
         var cameraRotation = Quaternion.LookRotation(camera.transform.position - transform.position);
-        transform.rotation = cameraRotation;
+        if (!this.GetComponent<playerBehaviour>().GetIsPulling()){
+            if (this.GetComponent<FixedJoint>() == null){
+                transform.rotation = cameraRotation;
+            }
+        }
     }
 }

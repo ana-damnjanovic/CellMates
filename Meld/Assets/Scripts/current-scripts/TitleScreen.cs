@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class TitleScreen : MonoBehaviour
 {
+
+    AsyncOperation labScene;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine("LoadLab");
     }
+
+     IEnumerator LoadLab() {         
+        labScene = SceneManager.LoadSceneAsync("Lab");
+        labScene.allowSceneActivation = false;
+        yield return null;   
+     }
 
     // Update is called once per frame
     void Update()
@@ -21,7 +30,7 @@ public class TitleScreen : MonoBehaviour
         GameObject.FindWithTag("UI").transform.Find("Panel").gameObject.transform.Find("P2_Z_Pressed").gameObject.GetComponent<Image>().enabled = Input.GetButton("JumpP2");
 
         if (Input.GetButton("JumpP1") && Input.GetButton("JumpP2")) {
-            SceneManager.LoadScene(1);
+            labScene.allowSceneActivation = true;
         }
     }
 }

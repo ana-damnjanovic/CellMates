@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MazeEndScript : MonoBehaviour
 {
+    private bool toggled = false;
     GameObject mainCamera;
     void Start()
     {
@@ -12,6 +13,10 @@ public class MazeEndScript : MonoBehaviour
 
     void OnTriggerEnter()
     {
-        mainCamera.GetComponent<MainCameraController>().flipCamera();
+        if (!toggled)
+        {
+            mainCamera.GetComponent<MainCameraController>().flipCamera();
+            toggled = true;
+        }
     }
 }

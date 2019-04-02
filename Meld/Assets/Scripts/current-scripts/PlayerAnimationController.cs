@@ -17,7 +17,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-        if (player.GetComponent<playerBehaviour>().GetIsSticking())
+        if (player.GetComponent<playerBehaviour>().GetIsSticking() || player.GetComponent<playerBehaviour>().GetIsPulling())
         {
             animator.SetBool("isSticking", true);
         } 
