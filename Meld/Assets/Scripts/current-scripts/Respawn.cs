@@ -12,6 +12,7 @@ public class Respawn : MonoBehaviour
     private GameObject p2;
     private GameObject membrane;
     private GameObject membraneSupportSphere;
+    private ParticleSystem trail;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class Respawn : MonoBehaviour
         p2 = GameObject.FindGameObjectWithTag("Player2");
         membrane = GameObject.FindGameObjectWithTag("Membrane");
         membraneSupportSphere = GameObject.FindGameObjectWithTag("MembraneSupportSphere");
+        trail = membraneSupportSphere.transform.Find("SlimeTrail").GetComponent<ParticleSystem>();
     }
 
     void respawn()
@@ -35,6 +37,7 @@ public class Respawn : MonoBehaviour
         membrane.GetComponent<Cloth>().enabled = true;
         p1.GetComponent<Rigidbody>().velocity = Vector3.zero;
         p2.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        trail.Clear();
     }
 
     void FixedUpdate()
