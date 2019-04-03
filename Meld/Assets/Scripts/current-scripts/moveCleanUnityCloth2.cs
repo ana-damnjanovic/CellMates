@@ -38,6 +38,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public bool p1EndMaze = false;
     public bool p2EndMaze = false;
 
+    private bool squint = false;
+
     private float jumpMagnitude = GameManager.jumpMagnitude;
     private float stickingJumpMagnitude = GameManager.stickingJumpMagnitude;
 
@@ -148,6 +150,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         ret[0] = canStick;
         ret[1] = canPull;
         return ret;
+    }
+
+    void squinting() {
+        GameObject[] eyelids = GameObject.FindGameObjectsWithTag("eyelids");
+        foreach (GameObject eyelid in eyelids) {
+            eyelid.GetComponent<MeshRenderer>().enabled = squint;
+        }
     }
 
     // Update is called once per frame
@@ -402,6 +411,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             GameObject.FindWithTag("MembraneSupportSphere").transform.Find("SlimeTrail").GetComponent<ParticleSystem>().Play();
         }
 
+        if(p1Grounded && p2Grounded) {
+            squint = false;
+            squinting();
+        }
+
         if (p1Behaviour.GetIsGrounded()) {
             if (p1Behaviour.GetGroundedHit().transform.CompareTag("Jump")){
                 if ((playerDistance> (maxSeparation - 0.6))) {
@@ -490,7 +504,8 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     player2.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
                     SoundEffectController.instance.Jump(); 
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
-
+                    squint = true;
+                    squinting();
                 } else if (p1Behaviour.GetIsSticking()){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
