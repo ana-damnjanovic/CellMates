@@ -1,19 +1,9 @@
 # CellMates
 
-Contributing
-
-The master branch is for stable builds only, please branch off of develop. 
-If you have any current branches directly off of master, here's how to change it:
-
-https://gist.github.com/iolloyd/4018744c054b223c035ed8233f1ea6ce <br />
-
-i.e.
-if you currently have master/my-branch and you want it to be develop/my-branch:
-
-git checkout develop
-
-git checkout -b new-branch
-
-git rebase --onto new-branch master my-branch
+CellMates is a 2 player co-op platformer. The core concept is that two players share one amorphous cell body. The two players must each control a nucleus and cooperate to move, jump, and stick to the environment in order to survive and escape a dangerous science lab.
 
 
+Asset Credits
+
+Downloaded assets have been credited here, the rest are made by the team:
+https://docs.google.com/document/d/1lvw6bi1z3lDxPq-b5DrYPfDzzPYAOFvvtDMDFIInjeU/edit
