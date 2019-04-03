@@ -32,6 +32,7 @@ TagManager:
   - p1_iris_left
   - p1_iris_right
   - GameEnd
+  - eyelids
   layers:
   - Default
   - TransparentFX

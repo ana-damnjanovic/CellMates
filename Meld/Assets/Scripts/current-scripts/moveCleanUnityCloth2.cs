@@ -443,6 +443,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 }
                 GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
             }
+            if (p1Behaviour.GetGroundedHit().transform.CompareTag("GameEnd")){
+                Debug.Log("lol1");
+                SceneManager.LoadScene("End_Screen");
+            }
         } 
 
         if (p2Behaviour.GetIsGrounded()) {
@@ -470,6 +474,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     not_dank.SetActive(false);
                 }
                 GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+            }
+            if (p2Behaviour.GetGroundedHit().transform.CompareTag("GameEnd")){
+                Debug.Log("lol2");
+                SceneManager.LoadScene("End_Screen");
             }
         }
 
