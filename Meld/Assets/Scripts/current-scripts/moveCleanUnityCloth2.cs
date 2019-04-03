@@ -39,6 +39,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public bool p2EndMaze = false;
 
     private bool squint = false;
+    private bool isDanking = false;
 
     private float jumpMagnitude = GameManager.jumpMagnitude;
     private float stickingJumpMagnitude = GameManager.stickingJumpMagnitude;
@@ -155,7 +156,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     void squinting() {
         GameObject[] eyelids = GameObject.FindGameObjectsWithTag("eyelids");
         foreach (GameObject eyelid in eyelids) {
-            eyelid.GetComponent<MeshRenderer>().enabled = squint;
+            eyelid.GetComponent<MeshRenderer>().enabled = squint && !isDanking;
         }
     }
 
@@ -442,9 +443,14 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     not_dank.SetActive(false);
                 }
                 GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+                GameObject.FindWithTag("p1_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p1_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                isDanking = true;
+                squinting();
             }
             if (p1Behaviour.GetGroundedHit().transform.CompareTag("GameEnd")){
-                Debug.Log("lol1");
                 SceneManager.LoadScene("End_Screen");
             }
         } 
@@ -474,9 +480,15 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     not_dank.SetActive(false);
                 }
                 GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+                GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+                GameObject.FindWithTag("p1_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p1_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                isDanking = true;
+                squinting();
             }
             if (p2Behaviour.GetGroundedHit().transform.CompareTag("GameEnd")){
-                Debug.Log("lol2");
                 SceneManager.LoadScene("End_Screen");
             }
         }
