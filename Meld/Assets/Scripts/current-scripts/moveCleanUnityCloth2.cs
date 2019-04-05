@@ -526,7 +526,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
                     squint = true;
                     squinting();
-                } else if (p1Behaviour.GetIsSticking()){//&& playerDistance > maxSeparation) {
+                } else if (p1Behaviour.GetIsSticking() && !pulling){//&& playerDistance > maxSeparation) {
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
@@ -537,7 +537,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     //player1.GetComponent<SpringJoint>().enableCollision = false;
                     //player1.GetComponent<SpringJoint>().maxDistance = 0;
                     //player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-                } else if (p2Behaviour.GetIsSticking()){//&& (playerDistance > (maxSeparation - 0.5)) {
+                } else if (p2Behaviour.GetIsSticking() && !pulling){//&& (playerDistance > (maxSeparation - 0.5)) {
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
                     pull.x = pull.x /2;
@@ -548,11 +548,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     //player1.GetComponent<SpringJoint>().enableCollision = false;
                     //player1.GetComponent<SpringJoint>().maxDistance = 0;
                     //player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-                } else if (p1Behaviour.GetIsPulling()){
+                }/*  else if (p1Behaviour.GetIsPulling()){
                     player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     Debug.Log("lol");
                     player1.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * stickingJumpMagnitude);
-                }
+                }*/
                 /* else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
                     player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
                 } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
