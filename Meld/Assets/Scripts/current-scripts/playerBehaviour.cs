@@ -63,6 +63,28 @@ public class playerBehaviour : MonoBehaviour
 
     public void SetVelocity(float horizontalAxis, float verticalAxis, bool isPartnerSticking)
     {
+        Vector3 direction = new Vector3(horizontalAxis, 0.0f, verticalAxis);
+
+        if (direction.x != 0 ||  direction.z != 0) {
+            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg + 180));
+        }
+        
+        if (player.CompareTag("Player1")){
+            GameObject.FindWithTag("p1_iris_left").transform.localPosition = new Vector3(GameObject.FindWithTag("p1_iris_left").transform.localPosition.x, 0.4f + (direction.normalized.z * 0.015f), GameObject.FindWithTag("p1_iris_left").transform.localPosition.z);
+            GameObject.FindWithTag("p1_iris_right").transform.localPosition = new Vector3(GameObject.FindWithTag("p1_iris_right").transform.localPosition.x, 0.4f + (direction.normalized.z * 0.015f), GameObject.FindWithTag("p1_iris_right").transform.localPosition.z);
+           
+            GameObject.FindWithTag("p1_iris_left").transform.localPosition = new Vector3(-0.143f - (direction.normalized.x * 0.025f), GameObject.FindWithTag("p1_iris_left").transform.localPosition.y, GameObject.FindWithTag("p1_iris_left").transform.localPosition.z);
+            GameObject.FindWithTag("p1_iris_right").transform.localPosition = new Vector3(0.1941f - (direction.normalized.x * 0.025f), GameObject.FindWithTag("p1_iris_right").transform.localPosition.y, GameObject.FindWithTag("p1_iris_right").transform.localPosition.z);
+        }
+
+        if (player.CompareTag("Player2")){
+            GameObject.FindWithTag("p2_iris_left").transform.localPosition = new Vector3(GameObject.FindWithTag("p2_iris_left").transform.localPosition.x, 0.312f + (direction.normalized.z * 0.03f), GameObject.FindWithTag("p2_iris_left").transform.localPosition.z);
+            GameObject.FindWithTag("p2_iris_right").transform.localPosition = new Vector3(GameObject.FindWithTag("p2_iris_right").transform.localPosition.x, 0.312f + (direction.normalized.z * 0.03f), GameObject.FindWithTag("p2_iris_right").transform.localPosition.z);
+           
+            GameObject.FindWithTag("p2_iris_left").transform.localPosition = new Vector3(-0.106f - (direction.normalized.x * 0.03f), GameObject.FindWithTag("p2_iris_left").transform.localPosition.y, GameObject.FindWithTag("p2_iris_left").transform.localPosition.z);
+            GameObject.FindWithTag("p2_iris_right").transform.localPosition = new Vector3(0.141f - (direction.normalized.x * 0.03f), GameObject.FindWithTag("p2_iris_right").transform.localPosition.y, GameObject.FindWithTag("p2_iris_right").transform.localPosition.z);   
+        }
+
         // Rotates the input vector to match the cameras Y rotation
         Vector3 alignedMovement = alignVectorToCurrentCamera(new Vector3(horizontalAxis,0f,verticalAxis));
         horizontalAxis = alignedMovement.x;
@@ -129,25 +151,6 @@ public class playerBehaviour : MonoBehaviour
         //movement.y = rb.velocity.y;
         //rb.velocity = movement;
 
-        if ( alignedMovement.x != 0 ||  alignedMovement.z != 0) {
-            player.transform.Find("Canvas").gameObject.transform.Find("Arrow").gameObject.GetComponent<Image>().rectTransform.localRotation =  Quaternion.Euler(0, 0, (Mathf.Atan2(alignedMovement.z, alignedMovement.x) * Mathf.Rad2Deg + 180));
-        }
-        
-        if (player.CompareTag("Player1")){
-            GameObject.FindWithTag("p1_iris_left").transform.localPosition = new Vector3(GameObject.FindWithTag("p1_iris_left").transform.localPosition.x, 0.4f + (alignedMovement.normalized.z * 0.015f), GameObject.FindWithTag("p1_iris_left").transform.localPosition.z);
-            GameObject.FindWithTag("p1_iris_right").transform.localPosition = new Vector3(GameObject.FindWithTag("p1_iris_right").transform.localPosition.x, 0.4f + (alignedMovement.normalized.z * 0.015f), GameObject.FindWithTag("p1_iris_right").transform.localPosition.z);
-           
-            GameObject.FindWithTag("p1_iris_left").transform.localPosition = new Vector3(-0.143f - (alignedMovement.normalized.x * 0.025f), GameObject.FindWithTag("p1_iris_left").transform.localPosition.y, GameObject.FindWithTag("p1_iris_left").transform.localPosition.z);
-            GameObject.FindWithTag("p1_iris_right").transform.localPosition = new Vector3(0.1941f - (alignedMovement.normalized.x * 0.025f), GameObject.FindWithTag("p1_iris_right").transform.localPosition.y, GameObject.FindWithTag("p1_iris_right").transform.localPosition.z);
-        }
-
-        if (player.CompareTag("Player2")){
-            GameObject.FindWithTag("p2_iris_left").transform.localPosition = new Vector3(GameObject.FindWithTag("p2_iris_left").transform.localPosition.x, 0.312f + (alignedMovement.normalized.z * 0.03f), GameObject.FindWithTag("p2_iris_left").transform.localPosition.z);
-            GameObject.FindWithTag("p2_iris_right").transform.localPosition = new Vector3(GameObject.FindWithTag("p2_iris_right").transform.localPosition.x, 0.312f + (alignedMovement.normalized.z * 0.03f), GameObject.FindWithTag("p2_iris_right").transform.localPosition.z);
-           
-            GameObject.FindWithTag("p2_iris_left").transform.localPosition = new Vector3(-0.106f - (alignedMovement.normalized.x * 0.03f), GameObject.FindWithTag("p2_iris_left").transform.localPosition.y, GameObject.FindWithTag("p2_iris_left").transform.localPosition.z);
-            GameObject.FindWithTag("p2_iris_right").transform.localPosition = new Vector3(0.141f - (alignedMovement.normalized.x * 0.03f), GameObject.FindWithTag("p2_iris_right").transform.localPosition.y, GameObject.FindWithTag("p2_iris_right").transform.localPosition.z);   
-        }
     }
 
     public Vector3 alignVectorToCurrentCamera(Vector3 movement) {
