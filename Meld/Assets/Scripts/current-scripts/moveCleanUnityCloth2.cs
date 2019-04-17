@@ -69,7 +69,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     private void Update()
     {
         if (Input.GetButtonDown("Restart")) {
-            SceneManager.LoadScene("Lab", LoadSceneMode.Single);
+            SceneManager.LoadScene("Title_Screen", LoadSceneMode.Single);
         }
         Vector3 down = transform.TransformDirection(Vector3.down) * 10;
         Debug.DrawRay(player1.transform.position, down, Color.green);
