@@ -74,14 +74,14 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         Vector3 down = transform.TransformDirection(Vector3.down) * 10;
         Debug.DrawRay(player1.transform.position, down, Color.green);
         Debug.DrawRay(player2.transform.position, down, Color.green);
-
+/* 
         Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back};
 
         foreach (Vector3 dir in directions) {
             Vector3 fwd = transform.TransformDirection(dir) * 50;
             Debug.DrawRay(player1.transform.position, fwd, Color.red);
             Debug.DrawRay(player2.transform.position, fwd, Color.red);
-        }
+        }*/
 
         p1AbleToJump = Input.GetButtonDown(p1JumpButton);
         p2AbleToJump = Input.GetButtonDown(p2JumpButton);
@@ -97,10 +97,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         //TensionSlider2.SetTension(playerDistance);
     }
 
-    private void OnCollisionEnter(Collision collision)
+   /*  private void OnCollisionEnter(Collision collision)
     {
         Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2, false);
-    }
+    } */
 
     private bool[] createStickingRay(GameObject player) {
         
@@ -174,7 +174,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         RaycastHit p1GroundedHit;
         var p1Ray = new Ray(player1.transform.position, Vector3.down);
         bool p1Grounded = p1Behaviour.GetIsGrounded();
-        bool p1onp2 = false;
         if (p1Grounded)
         {
             p1GroundedHit = p1Behaviour.GetGroundedHit();
@@ -183,11 +182,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 if (p1GroundedHit.rigidbody.CompareTag(player2Tag))
                 {
                     p1Grounded = false;
-                    p1onp2 = true;
-                }
-                else
-                {
-                    p1onp2 = false;
                 }
             }
             if (p1GroundedHit.transform.CompareTag("maze"))
@@ -217,7 +211,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         RaycastHit p2GroundedHit;
         bool p2Grounded = p2Behaviour.GetIsGrounded();
-        bool p2onp1 = false;
         if (p2Grounded)
         {
             p2GroundedHit = p2Behaviour.GetGroundedHit();
@@ -226,11 +219,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 if (p2GroundedHit.rigidbody.CompareTag(player1Tag))
                 {
                     p2Grounded = false;
-                    p2onp1 = true;
-                }
-                else
-                {
-                    p2onp1 = false;
                 }
             }
             if (p2GroundedHit.transform.CompareTag("maze"))
@@ -249,21 +237,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         Camera mazecam = GameObject.FindWithTag("mazecam").GetComponent<Camera>();
         Camera maincam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        //Camera revcam = GameObject.FindWithTag("ReverseCamera").GetComponent<Camera>();
-
-        // if (p1Maze || p2Maze)
-        // {
-        //     maincam.enabled = false;
-        //     mazecam.enabled = true;
-        //     mazecam.GetComponent<CameraController>().enabled = true;
-        // }
-        // else
-        // {
-        //     maincam.enabled = true;
-        //     mazecam.enabled = false;
-        //     mazecam.GetComponent<CameraController>().enabled = false;
-        // }
-
 
 
         // This should prevent the player from sinking to the ground
@@ -277,8 +250,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         }
         Vector3 player1position = player1.transform.position;
         Vector3 player2position = player2.transform.position;
-        //player1position.y = 0;
-        //player2position.y = 0;
 
         bool[] p1Tuple = createStickingRay(player1);
         bool[] p2Tuple = createStickingRay(player2);
@@ -303,8 +274,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         if (Input.GetButton(p1StickButton) && p1CanStick)
         {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p1Behaviour.SetIsSticking(true);
 
@@ -316,24 +285,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 player1.AddComponent<FixedJoint>();
             }
             player1.GetComponent<FixedJoint>().connectedBody = GameObject.Find("MazeBall").GetComponent<Rigidbody>();
-        } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) {
-            //player1.GetComponent<Rigidbody>().drag = 10;
-            //player2.GetComponent<Rigidbody>().drag = 10;
-            player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p1Behaviour.SetIsSticking(false);
-        }
-        else
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
+        } else {
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p1Behaviour.SetIsSticking(false);
 
         }
         if (Input.GetButton(p2StickButton) && p2CanStick)
         {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p2Behaviour.SetIsSticking(true);
         }  else if (Input.GetButton(p2StickButton) && p2CanPull) {
@@ -344,17 +302,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 player2.AddComponent<FixedJoint>();
             }
             player2.GetComponent<FixedJoint>().connectedBody = GameObject.Find("MazeBall").GetComponent<Rigidbody>();
-        } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) 
-        {
-            //player1.GetComponent<Rigidbody>().drag = 10;
-            //player2.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p2Behaviour.SetIsSticking(false);
-        }
-        else
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
+        } else {
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p2Behaviour.SetIsSticking(false);
         }
