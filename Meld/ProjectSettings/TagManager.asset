@@ -27,6 +27,12 @@ TagManager:
   - dank_enable
   - dank_canvas
   - pullable
+  - p2_iris_left
+  - p2_iris_right
+  - p1_iris_left
+  - p1_iris_right
+  - GameEnd
+  - eyelids
   layers:
   - Default
   - TransparentFX

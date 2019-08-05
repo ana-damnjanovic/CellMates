@@ -14,6 +14,18 @@ public class GameManager : MonoBehaviour
     public static float stickingJumpMagnitude = 300;
     public static float playerMass = 0.2f;
     public static float stickingPlayerMass = 1;
+    
+    public static string player1Tag = "Player1";
+    public static string p1HorizontalInput = "HorizontalP1";
+    public static string p1VerticalInput = "VerticalP1";
+    public static string p1StickButton = "StickP1";
+    public static string p1JumpButton = "JumpP1";
+
+    public static string player2Tag = "Player2";
+    public static string p2HorizontalInput = "HorizontalP2";
+    public static string p2VerticalInput = "VerticalP2";
+    public static string p2StickButton = "StickP2";
+    public static string p2JumpButton = "JumpP2";
 
     void Awake()
     {

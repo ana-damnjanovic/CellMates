@@ -38,6 +38,9 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     public bool p1EndMaze = false;
     public bool p2EndMaze = false;
 
+    private bool squint = false;
+    private bool isDanking = false;
+
     private float jumpMagnitude = GameManager.jumpMagnitude;
     private float stickingJumpMagnitude = GameManager.stickingJumpMagnitude;
 
@@ -66,19 +69,19 @@ public class moveCleanUnityCloth2 : MonoBehaviour
     private void Update()
     {
         if (Input.GetButtonDown("Restart")) {
-            SceneManager.LoadScene("Lab", LoadSceneMode.Single);
+            SceneManager.LoadScene("Title_Screen", LoadSceneMode.Single);
         }
         Vector3 down = transform.TransformDirection(Vector3.down) * 10;
         Debug.DrawRay(player1.transform.position, down, Color.green);
         Debug.DrawRay(player2.transform.position, down, Color.green);
-
+/* 
         Vector3[] directions = {Vector3.up, Vector3.forward, Vector3.left, Vector3.right, Vector3.back};
 
         foreach (Vector3 dir in directions) {
             Vector3 fwd = transform.TransformDirection(dir) * 50;
             Debug.DrawRay(player1.transform.position, fwd, Color.red);
             Debug.DrawRay(player2.transform.position, fwd, Color.red);
-        }
+        }*/
 
         p1AbleToJump = Input.GetButtonDown(p1JumpButton);
         p2AbleToJump = Input.GetButtonDown(p2JumpButton);
@@ -94,10 +97,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         //TensionSlider2.SetTension(playerDistance);
     }
 
-    private void OnCollisionEnter(Collision collision)
+   /*  private void OnCollisionEnter(Collision collision)
     {
         Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red, 2, false);
-    }
+    } */
 
     private bool[] createStickingRay(GameObject player) {
         
@@ -150,6 +153,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         return ret;
     }
 
+    void squinting() {
+        GameObject[] eyelids = GameObject.FindGameObjectsWithTag("eyelids");
+        foreach (GameObject eyelid in eyelids) {
+            eyelid.GetComponent<MeshRenderer>().enabled = squint && !isDanking;
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -164,7 +174,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         RaycastHit p1GroundedHit;
         var p1Ray = new Ray(player1.transform.position, Vector3.down);
         bool p1Grounded = p1Behaviour.GetIsGrounded();
-        bool p1onp2 = false;
         if (p1Grounded)
         {
             p1GroundedHit = p1Behaviour.GetGroundedHit();
@@ -173,11 +182,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 if (p1GroundedHit.rigidbody.CompareTag(player2Tag))
                 {
                     p1Grounded = false;
-                    p1onp2 = true;
-                }
-                else
-                {
-                    p1onp2 = false;
                 }
             }
             if (p1GroundedHit.transform.CompareTag("maze"))
@@ -207,7 +211,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         RaycastHit p2GroundedHit;
         bool p2Grounded = p2Behaviour.GetIsGrounded();
-        bool p2onp1 = false;
         if (p2Grounded)
         {
             p2GroundedHit = p2Behaviour.GetGroundedHit();
@@ -216,11 +219,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 if (p2GroundedHit.rigidbody.CompareTag(player1Tag))
                 {
                     p2Grounded = false;
-                    p2onp1 = true;
-                }
-                else
-                {
-                    p2onp1 = false;
                 }
             }
             if (p2GroundedHit.transform.CompareTag("maze"))
@@ -239,21 +237,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         Camera mazecam = GameObject.FindWithTag("mazecam").GetComponent<Camera>();
         Camera maincam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        //Camera revcam = GameObject.FindWithTag("ReverseCamera").GetComponent<Camera>();
-
-        // if (p1Maze || p2Maze)
-        // {
-        //     maincam.enabled = false;
-        //     mazecam.enabled = true;
-        //     mazecam.GetComponent<CameraController>().enabled = true;
-        // }
-        // else
-        // {
-        //     maincam.enabled = true;
-        //     mazecam.enabled = false;
-        //     mazecam.GetComponent<CameraController>().enabled = false;
-        // }
-
 
 
         // This should prevent the player from sinking to the ground
@@ -267,8 +250,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
         }
         Vector3 player1position = player1.transform.position;
         Vector3 player2position = player2.transform.position;
-        //player1position.y = 0;
-        //player2position.y = 0;
 
         bool[] p1Tuple = createStickingRay(player1);
         bool[] p2Tuple = createStickingRay(player2);
@@ -293,8 +274,6 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         if (Input.GetButton(p1StickButton) && p1CanStick)
         {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p1Behaviour.SetIsSticking(true);
 
@@ -306,24 +285,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 player1.AddComponent<FixedJoint>();
             }
             player1.GetComponent<FixedJoint>().connectedBody = GameObject.Find("MazeBall").GetComponent<Rigidbody>();
-        } else if (p1CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) {
-            //player1.GetComponent<Rigidbody>().drag = 10;
-            //player2.GetComponent<Rigidbody>().drag = 10;
-            player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p1Behaviour.SetIsSticking(false);
-        }
-        else
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
+        } else {
             player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p1Behaviour.SetIsSticking(false);
 
         }
         if (Input.GetButton(p2StickButton) && p2CanStick)
         {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             p2Behaviour.SetIsSticking(true);
         }  else if (Input.GetButton(p2StickButton) && p2CanPull) {
@@ -334,17 +302,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                 player2.AddComponent<FixedJoint>();
             }
             player2.GetComponent<FixedJoint>().connectedBody = GameObject.Find("MazeBall").GetComponent<Rigidbody>();
-        } else if (p2CanStick && (!p1Behaviour.GetIsGrounded() || !p2Behaviour.GetIsGrounded())) 
-        {
-            //player1.GetComponent<Rigidbody>().drag = 10;
-            //player2.GetComponent<Rigidbody>().drag = 10;
-            player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-            p2Behaviour.SetIsSticking(false);
-        }
-        else
-        {
-            player1.GetComponent<Rigidbody>().drag = 0;
-            player2.GetComponent<Rigidbody>().drag = 0;
+        } else {
             player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             p2Behaviour.SetIsSticking(false);
         }
@@ -365,10 +323,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         playerDistance = Vector3.Distance(player1positionNoY, player2positionNoY);
 
-        if (p1CanStick) {
-            if (p1Behaviour.GetIsSticking()) {
+        if (p1CanStick || p1CanPull) {
+            if (p1Behaviour.GetIsSticking() || p1Behaviour.GetIsPulling()) {
                 player1.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
-                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 0.6)) && !p2CanStick){
+                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 0.6)) && !p2CanStick && !p1Behaviour.GetIsPulling()){
                     player2.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
                 }
             } else {
@@ -376,10 +334,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
             }           
         }
 
-        if (p2CanStick) {
-            if (p2Behaviour.GetIsSticking()) {
+        if (p2CanStick || p2CanPull) {
+            if (p2Behaviour.GetIsSticking() || p2Behaviour.GetIsPulling()) {
                 player2.transform.Find("Canvas").gameObject.transform.Find("StickPressed").gameObject.GetComponent<Image>().enabled = true;
-                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 0.6))  && !p1CanStick){
+                if ((Vector3.Distance(player1position, player2position) > (maxSeparation - 0.6))  && !p1CanStick && !p2Behaviour.GetIsPulling()){
                     player1.transform.Find("Canvas").gameObject.transform.Find("Jump").gameObject.GetComponent<Image>().enabled = true;
                 }
             } else {
@@ -400,6 +358,11 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
         if (!p1Grounded || !p2Grounded) {
             GameObject.FindWithTag("MembraneSupportSphere").transform.Find("SlimeTrail").GetComponent<ParticleSystem>().Play();
+        }
+
+        if(p1Grounded && p2Grounded) {
+            squint = false;
+            squinting();
         }
 
         if (p1Behaviour.GetIsGrounded()) {
@@ -428,6 +391,15 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     not_dank.SetActive(false);
                 }
                 GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+                GameObject.FindWithTag("p1_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p1_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                isDanking = true;
+                squinting();
+            }
+            if (p1Behaviour.GetGroundedHit().transform.CompareTag("GameEnd")){
+                SceneManager.LoadScene("End_Screen");
             }
         } 
 
@@ -456,6 +428,16 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     not_dank.SetActive(false);
                 }
                 GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+                GameObject.FindWithTag("dank_enable").GetComponent<AudioSource>().Play();
+                GameObject.FindWithTag("p1_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p1_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_left").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.FindWithTag("p2_iris_right").GetComponent<MeshRenderer>().enabled = false;
+                isDanking = true;
+                squinting();
+            }
+            if (p2Behaviour.GetGroundedHit().transform.CompareTag("GameEnd")){
+                SceneManager.LoadScene("End_Screen");
             }
         }
 
@@ -469,29 +451,13 @@ public class moveCleanUnityCloth2 : MonoBehaviour
 
                 // Players aren't sticking or pulling, and at least one of them is on the ground
                 if (!sticking && !pulling && (p1Grounded || p2Grounded)) {
-
-                    Vector3 pullCenter = avg;
-
-                    // If both players are on the ground, pull them upwards
-                    if (p1Grounded && p2Grounded)
-                    {
-                        pullCenter.y = jump;
-                    }
-
-                    // Remove vertical portions so that we don't lose upward force
-                    Vector3 temp = player1.transform.position;
-                    //temp.y = 0;
-                    Vector3 temp1 = player2.transform.position;
-                    //temp1.y = 0;
-
-                    //player1.GetComponent<Rigidbody>().AddForce((pullCenter - temp).normalized * jumpMagnitude);
-                    //player2.GetComponent<Rigidbody>().AddForce((pullCenter - temp1).normalized * jumpMagnitude);
                     player1.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpMagnitude);
                     SoundEffectController.instance.Jump(); 
                     player1.GetComponent<SpringJoint>().maxDistance = 0;
-
-                } else if (p1Behaviour.GetIsSticking()){//&& playerDistance > maxSeparation) {
+                    squint = true;
+                    squinting();
+                } else if (p1Behaviour.GetIsSticking() && !pulling){
                     Vector3 pull = avg;
                     pull = pull  - player2.transform.position;
                     pull.x = pull.x /2;
@@ -499,10 +465,7 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     pull.y += 0.1f;
                     player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
                     player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                    //player1.GetComponent<SpringJoint>().enableCollision = false;
-                    //player1.GetComponent<SpringJoint>().maxDistance = 0;
-                    //player1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-                } else if (p2Behaviour.GetIsSticking()){//&& (playerDistance > (maxSeparation - 0.5)) {
+                } else if (p2Behaviour.GetIsSticking() && !pulling){
                     Vector3 pull = avg;
                     pull = pull  - player1.transform.position;
                     pull.x = pull.x /2;
@@ -510,25 +473,10 @@ public class moveCleanUnityCloth2 : MonoBehaviour
                     pull.y += 0.1f;
                     player1.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
                     player2.GetComponent<Rigidbody>().AddForce((pull).normalized * stickingJumpMagnitude);
-                    //player1.GetComponent<SpringJoint>().enableCollision = false;
-                    //player1.GetComponent<SpringJoint>().maxDistance = 0;
-                    //player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-                } else if (p1Behaviour.GetIsPulling()){
-                    player2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    Debug.Log("lol");
-                    player1.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * stickingJumpMagnitude);
                 }
-                /* else if (p1Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
-                    player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
-                } else if (p2Behaviour.GetIsSticking() && playerDistance > maxSeparation) {
-                    player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
-                }*/
 
                 p1AbleToJump = false;
                 p2AbleToJump = false;
-            } else if (playerDistance > maxSeparation) {
-                //player2.GetComponent<Rigidbody>().AddForce((avg - player2.transform.position).normalized * 20 * topSpeed);
-                //player1.GetComponent<Rigidbody>().AddForce((avg - player1.transform.position).normalized * 20 * topSpeed);
             }
 
         }
